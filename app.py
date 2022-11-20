@@ -24,59 +24,49 @@ cursor = conn.cursor()
 def getAttractions():
     page = request.args.get("page","")
     page = int(page)
-    print("page:",page)
     keyword = request.args.get("keyword","")
-    print("keyword:[",keyword,"]")
     outDict = {}
     indictList = []
     
+    head_id = 12*page
     try:
+        # 判斷有無keyword，執行對應sql指令
         if keyword != "":
-            cursor.execute("SELECT * FROM site WHERE name REGEXP %s OR category= %s;",(str(keyword),str(keyword)))
+            cursor.execute("SELECT * FROM site WHERE name REGEXP %s OR category= %s LIMIT %s, %s;",(str(keyword),str(keyword),head_id,12))
             alldata = cursor.fetchall()
-            # print(alldata)
         else:
-            cursor.execute("SELECT * FROM site;")
+            cursor.execute("SELECT * FROM site LIMIT %s, %s;",(head_id,12))
             alldata = cursor.fetchall()
-        dataNum = len(alldata)
-        # print(dataNum) 
-        lastpage = math.floor(dataNum/12)
-        print(lastpage) 
-        if 0 <= page <= lastpage:
-            head_id = 1+12*page
-            # print(head_id)
-            if page == lastpage:
-                tail_id = head_id+((dataNum%12)-1)
-                # print(tail_id)
-                outDict["nextPage"] = None
-            else:
-                tail_id = head_id+11
-                outDict["nextPage"] = page+1
 
-            # 把資料塞進字典
-
-            for i in range(head_id-1,tail_id):
-                inDict = {}
-                inDict["id"] = alldata[i][0]
-                inDict["name"] = alldata[i][1]
-                inDict["category"] = alldata[i][2]
-                inDict["description"] = alldata[i][3]
-                inDict["address"] = alldata[i][4]
-                inDict["transport"] = alldata[i][5]
-                inDict["mrt"] = alldata[i][6]
-                inDict["lat"] = alldata[i][7]
-                inDict["lng"] = alldata[i][8]
-                inDict["images"] = alldata[i][9]
-                indictList.append(inDict)
-            # print(indictList)
-            outDict["data"]=indictList
-            return jsonify(outDict),200
-        # 如果page超出範圍，顯示資料為空
-        else:
+        # 根據抓出資料，決定顯示瀏覽器的 nextPage 和 data
+        if alldata == None:
             outDict["nextPage"] = None
-            outDict["data"]=indictList
+            outDict["data"] = indictList
             return jsonify(outDict),200
-        
+        elif len(alldata) != 12:
+            outDict["nextPage"] = None
+        else:
+            outDict["nextPage"] = page+1
+
+        # 把資料放入字典
+        for each in alldata:
+            inDict = {}
+            inDict["id"] = each[0]
+            inDict["name"] = each[1]
+            inDict["category"] = each[2]
+            inDict["description"] = each[3]
+            inDict["address"] = each[4]
+            inDict["transport"] = each[5]
+            inDict["mrt"] = each[6]
+            inDict["lat"] = each[7]
+            inDict["lng"] = each[8]
+            image ="".join(each[9].strip('][')).replace("'","").split(", ")
+            inDict["images"] = image
+            indictList.append(inDict)
+        outDict["data"]=indictList
+        return jsonify(outDict),200
+
+    # 伺服器內部錯誤
     except:
         outDict["error"] = True
         outDict["message"] = "There is something wrong."
@@ -84,40 +74,32 @@ def getAttractions():
 
 @app.route("/api/attraction/<attractionId>",methods=["GET"])
 def getIdAttractions(attractionId):
-    # attractionId = int(attractionId)
-    cursor.execute("SELECT id FROM site;")
-    alldata = cursor.fetchall()
-    maxNum = max(alldata)[0]
-    minNum = min(alldata)[0]
-    dataNum = len(alldata)
-
-    outDict = {}
-    # 景點編號不正確
-    if int(attractionId) > maxNum or int(attractionId) < minNum:
-        outDict["error"] = True
-        outDict["message"] = "The attraction_id is not valid."
-        return jsonify(outDict),400
     cursor.execute("SELECT * FROM site WHERE id=%s;",(attractionId,))
-    alldata = cursor.fetchall()
-    # print(alldata) # [(3, '士林官邸', '歷史建築',...)]
-    
-    # 景點資料
-    if alldata != []:
-        inDict={}
-        inDict["id"] = alldata[0][0]
-        inDict["name"] = alldata[0][1]
-        inDict["category"] = alldata[0][2]
-        inDict["description"] = alldata[0][3]
-        inDict["address"] = alldata[0][4]
-        inDict["transport"] = alldata[0][5]
-        inDict["mrt"] = alldata[0][6]
-        inDict["lat"] = alldata[0][7]
-        inDict["lng"] = alldata[0][8]
-        inDict["images"] = alldata[0][9]
-        outDict["data"]=inDict
-        return jsonify(outDict),200
-    # 伺服器內部錯誤
-    else:
+    alldata = cursor.fetchone()
+    outDict = {}
+    try:
+        # 景點編號不正確
+        if alldata == None:
+            outDict["error"] = True
+            outDict["message"] = "The attraction_id is not valid."
+            return jsonify(outDict),400
+        else:
+            inDict = {}
+            inDict["id"] = alldata[0]
+            inDict["name"] = alldata[1]
+            inDict["category"] = alldata[2]
+            inDict["description"] = alldata[3]
+            inDict["address"] = alldata[4]
+            inDict["transport"] = alldata[5]
+            inDict["mrt"] = alldata[6]
+            inDict["lat"] = alldata[7]
+            inDict["lng"] = alldata[8]
+            image ="".join(alldata[9].strip('][')).replace("'","").split(", ")
+            inDict["images"] = image
+            outDict["data"]=inDict
+            return jsonify(outDict),200
+    except:
+        # 伺服器內部錯誤
         outDict["error"] = True
         outDict["message"] = "There is something wrong."
         return jsonify(outDict),500
@@ -128,7 +110,6 @@ def getIdAttractions(attractionId):
 def getCategoriesAttractions():
     cursor.execute("SELECT category FROM site;")
     alldata = cursor.fetchall()
-    # print(alldata)
     outData={}
     if alldata != []:
         categoriesList = []
@@ -144,25 +125,20 @@ def getCategoriesAttractions():
 
 # Pages
 
-
 @app.route("/")
 def index():
     return render_template("index.html")
-
 
 @app.route("/attraction/<id>")
 def attraction(id):
     return render_template("attraction.html")
 
-
 @app.route("/booking")
 def booking():
     return render_template("booking.html")
 
-
 @app.route("/thankyou")
 def thankyou():
     return render_template("thankyou.html")
-
 
 app.run(host='0.0.0.0',port=3000,debug=True)
