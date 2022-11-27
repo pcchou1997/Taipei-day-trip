@@ -1,6 +1,10 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+
 * {
     box-sizing: border-box;
     font-size: 20px;
+
 }
 
 html,
@@ -9,6 +13,8 @@ body {
     padding: 0;
     border: 0;
     height: 100%;
+    font-family: 'Noto Sans TC', '微軟正黑體', sans-serif;
+    ;
 }
 
 /* ==================================================
