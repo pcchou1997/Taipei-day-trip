@@ -1,22 +1,31 @@
 from flask import *
 import mysql.connector
+from mysql.connector import pooling
 import math
+# from flask_cors import CORS
+# from flask_cors import cross_origin
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False # 支援 JSON 顯示中文
 app.config["JSON_SORT_KEYS"] = False # JSON 輸出瀏覽器不會自動排序
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
-# 打開資料庫 
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}}) #所有api路徑都可以使用CORS
+# CORS(app)
 
-conn = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='Aaa-860221',
-    db='siteDB',
-    charset='utf8mb4'
-)
-cursor = conn.cursor()
+# 打開資料庫 
+def openDB():
+    pool=pooling.MySQLConnectionPool(
+        pool_name="mypool",
+        pool_size=20,
+        pool_reset_session=True,
+        host='localhost',
+        user='root',
+        password='Aaa-860221',
+        db='siteDB',
+        charset='utf8mb4')
+    conn = pool.get_connection()
+    return conn
 
 # api 旅遊景點
 
@@ -30,13 +39,20 @@ def getAttractions():
     
     head_id = 12*page
     try:
+        conn=openDB()
+        cursor = conn.cursor()
         # 判斷有無keyword，執行對應sql指令
         if keyword != "":
             cursor.execute("SELECT * FROM site WHERE name REGEXP %s OR category= %s LIMIT %s, %s;",(str(keyword),str(keyword),head_id,12))
             alldata = cursor.fetchall()
+            cursor.close()
+            conn.close()
         else:
+            
             cursor.execute("SELECT * FROM site LIMIT %s, %s;",(head_id,12))
             alldata = cursor.fetchall()
+            cursor.close()
+            conn.close()
 
         # 根據抓出資料，決定顯示瀏覽器的 nextPage 和 data
         if alldata == None:
@@ -74,8 +90,12 @@ def getAttractions():
 
 @app.route("/api/attraction/<attractionId>",methods=["GET"])
 def getIdAttractions(attractionId):
+    conn=openDB()
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM site WHERE id=%s;",(attractionId,))
     alldata = cursor.fetchone()
+    cursor.close()
+    conn.close()
     outDict = {}
     try:
         # 景點編號不正確
@@ -108,8 +128,12 @@ def getIdAttractions(attractionId):
 
 @app.route("/api/categories",methods=["GET"])
 def getCategoriesAttractions():
+    conn=openDB()
+    cursor = conn.cursor()
     cursor.execute("SELECT category FROM site;")
     alldata = cursor.fetchall()
+    cursor.close()
+    conn.close()
     outData={}
     if alldata != []:
         categoriesList = []
