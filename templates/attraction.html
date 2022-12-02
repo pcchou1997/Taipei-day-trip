@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台北一日遊</title>
+    <link rel="stylesheet" href="../static/css/attraction.css">
+</head>
+
+<body>
+    <!-- 導覽列 -->
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a class="logo" href="#">台北一日遊</a>
+            <nav class="navbar-list">
+                <ul class="menu">
+                    <li><a href="#">預定行程</a></li>
+                    <li><a href="#">登入/註冊</a></li>
+                </ul>
+            </nav>
+        </div>
+    </nav>
+    <!-- 導覽列end -->
+
+    <!-- 主內容 -->
+    <section class="section">
+        <div class="carousel">
+            <!-- 圖片輪播 -->
+            <div class="carousel_track-container">
+                <ul class="carousel_track">
+                    <!-- <li class="carousel_slide current-slide"><img class="carousel_image"
+                            src="https://cdn.searchenginejournal.com/wp-content/uploads/2022/04/reverse-image-search-627b7e49986b0-sej-760x400.png"
+                            alt=""></li>
+                    <li class="carousel_slide"><img class="carousel_image"
+                            src="https://learnopencv.com/wp-content/uploads/2021/04/image-15.png" alt=""></li>
+                    <li class="carousel_slide"><img class="carousel_image"
+                            src="https://images.pexels.com/photos/355508/pexels-photo-355508.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt=""></li> -->
+                </ul>
+            </div>
+            <!-- 讓使用者在第一頁不可使用往前一頁、在最後一頁不可使用往後一頁，在carousel_button_left後面新增is-hidden -->
+            <button class="carousel_button carousel_button_left"></button>
+            <button class="carousel_button carousel_button_right"></button>
+            <div class="carousel_nav">
+                <!-- <button class="carousel_indicator current-slide"></button>
+                <button class="carousel_indicator"></button>
+                <button class="carousel_indicator"></button> -->
+            </div>
+
+
+        </div>
+        <div class="order">
+            <div class="name"></div>
+            <div class="catMrt"></div>
+            <div class="orderGuild">
+                <div class="orderTitle"><b>訂購導覽行程</b></div>
+                <div class="orderintro">以此景點為中心的一日行程，帶您探索城市角落故事</div>
+                <b>選擇日期：</b><input type="date" class="date">
+                <br>
+                <div class="select">
+                    <b>選擇時間：</b>
+                    <label class="container">上半天
+                        <input type="radio" name="time" value="morning" class="orderTime" checked="checked"
+                            onclick="orderMoring()">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container">下半天
+                        <input type="radio" name="time" value="afternoon" class="orderTime" onclick="orderAfternoon()">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <!-- <input type="radio" name="time" value="morning" class="orderTime" checked="checked"
+                    onclick="orderMoring()">上半天
+                <input type="radio" name="time" value="afternoon" class="orderTime" onclick="orderAfternoon()">下半天 -->
+                <div class="orderPrice">
+                    <p><b>導覽費用：</b></p>
+                    <p class="price">新台幣 2000 元</p>
+                </div>
+                <button class="button">開始預約行程</button>
+            </div>
+        </div>
+    </section>
+    <div class="info">
+        <div class="description"></div>
+        <div class="infoTitle addressTitle"></div>
+        <div class="address"></div>
+        <div class="infoTitle transTitle"></div>
+        <div class="transportation"></div>
+    </div>
+
+    <!-- 主內容end -->
+
+    <!-- footer -->
+    <footer class="footer">
+        <div>COPYRIGHT @ 2022 台北一日遊</div>
+    </footer>
+    <!-- footer end-->
+    <script src="../static/js/attraction.js"></script>
+</body>
+
+</html>

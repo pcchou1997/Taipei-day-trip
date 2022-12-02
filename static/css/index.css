@@ -185,6 +185,9 @@ body {
     margin: 30px auto 0px auto;
 }
 
+.grid_small a {
+    text-decoration: none;
+}
 
 .site {
     width: 100%;
