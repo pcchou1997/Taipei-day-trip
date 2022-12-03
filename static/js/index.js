@@ -36,18 +36,21 @@ let getMoreData = async function () {
                 else {
                     tail = 4;
                 }
+
                 let content = "";
                 for (j = head; j < head + tail; j++) {
                     addContent = `
-                <div class="site site_${data["data"][j]["id"]}">
-                    <div class="site_img" style="background-image: url(${data["data"][j]["images"][0]});">
-                        <div class="site_name"><p>${data["data"][j]["name"]}</p></div>
+                    <a href="/attraction/${data["data"][j]["id"]}">
+                    <div class="site site_${data["data"][j]["id"]}">
+                        <div class="site_img" style="background-image: url(${data["data"][j]["images"][0]});">
+                            <div class="site_name"><p>${data["data"][j]["name"]}</p></div>
+                        </div>
+                        <div class="site_info">
+                            <div class="site_MRT"><p>${data["data"][j]["mrt"]}</p></div>
+                            <div class="site_category"><p>${data["data"][j]["category"]}</p></div>
+                        </div>
                     </div>
-                    <div class="site_info">
-                        <div class="site_MRT"><p>${data["data"][j]["mrt"]}</p></div>
-                        <div class="site_category"><p>${data["data"][j]["category"]}</p></div>
-                    </div>
-                </div>`
+                </a>`
                     content = content + addContent
                 }
                 Element.innerHTML = content;
