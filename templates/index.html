@@ -15,8 +15,8 @@
         <a class="logo" href="#">台北一日遊</a>
         <nav class="navbar-list">
             <ul class="menu">
-                <li><a href="#">預定行程</a></li>
-                <li><a href="#">登入/註冊</a></li>
+                <li>預定行程</li>
+                <li onclick="signinOpen();">登入/註冊</li>
             </ul>
         </nav>
     </nav>
@@ -37,6 +37,36 @@
             </div>
         </div>
     </div>
+    <!-- 登入 -->
+    <div class="signin">
+        <div class="signin_head"></div>
+        <div class="signin_content">
+            <h3>登入會員帳號</h3>
+            <div class="signin_close"><img src="../static/img/icon_close.png" alt="" onclick="signinClose();"></div>
+            <input type="text" name="signin_email" placeholder="輸入電子信箱" class="signin_input signin_email">
+            <input type="text" name="signin_password" placeholder="輸入密碼" class="signin_input signin_password">
+            <button type="submit" form="form1" value="submit" onclick="login()">登入帳戶</button>
+            <div class="signin_errorMessage"></div>
+            <p class="signin_signup" onclick="signupOpen();">還沒有帳戶？點此註冊</p>
+        </div>
+    </div>
+    <!-- 登入 end -->
+    <!-- 註冊 -->
+    <div class="signup">
+        <div class="signup_head"></div>
+        <div class="signup_content">
+            <h3>註冊會員帳號</h3>
+            <div class="signup_close"><img src="../static/img/icon_close.png" alt="" onclick="signupClose();"></div>
+            <form action="/api/user" method="POST">
+                <input type="text" name="signup_name" placeholder="輸入姓名" class="signup_input signup_name">
+                <input type="text" name="signup_email" placeholder="輸入電子郵件" class="signup_input signup_email">
+                <input type="text" name="signup_password" placeholder="輸入密碼" class="signup_input signup_password">
+                <button type="submit" form="form1" value="submit">註冊新帳戶</button>
+            </form>
+            <p class="signup_signin" onclick="signinOpen();">已經有帳戶了？點此登入</p>
+        </div>
+    </div>
+    <!-- 註冊 end -->
     <!-- welcome end -->
 
     <!-- 主內容 -->

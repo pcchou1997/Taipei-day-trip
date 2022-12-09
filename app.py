@@ -2,6 +2,8 @@ from flask import *
 import mysql.connector
 from mysql.connector import pooling
 import math
+import jwt
+from datetime import datetime,timedelta
 # from flask_cors import CORS
 # from flask_cors import cross_origin
 
@@ -13,8 +15,8 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}}) #所有api路徑都可以使用CORS
 # CORS(app)
 
-# 打開資料庫 
-def openDB():
+# 打開 siteDB 資料庫 
+def openSiteDB():
     pool=pooling.MySQLConnectionPool(
         pool_name="mypool",
         pool_size=20,
@@ -27,6 +29,25 @@ def openDB():
     conn = pool.get_connection()
     return conn
 
+# 打開 memberDB 資料庫 
+def openMemberDB():
+    pool=pooling.MySQLConnectionPool(
+        pool_name="mypool2",
+        pool_size=20,
+        pool_reset_session=True,
+        host='localhost',
+        user='root',
+        password='Aaa-860221',
+        db='TaipeiDayTripMemberDB',
+        charset='utf8mb4')
+    conn = pool.get_connection()
+    return conn
+
+# 關閉資料庫 
+def closeDB():
+    cursor.close()
+    conn.close()
+    
 # api 旅遊景點
 
 @app.route("/api/attractions",methods=["GET"])
@@ -39,7 +60,7 @@ def getAttractions():
     
     head_id = 12*page
     try:
-        conn=openDB()
+        conn=openSiteDB()
         cursor = conn.cursor()
         # 判斷有無keyword，執行對應sql指令
         if keyword != "":
@@ -90,7 +111,7 @@ def getAttractions():
 
 @app.route("/api/attraction/<attractionId>",methods=["GET"])
 def getIdAttractions(attractionId):
-    conn=openDB()
+    conn=openSiteDB()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM site WHERE id=%s;",(attractionId,))
     alldata = cursor.fetchone()
@@ -128,7 +149,7 @@ def getIdAttractions(attractionId):
 
 @app.route("/api/categories",methods=["GET"])
 def getCategoriesAttractions():
-    conn=openDB()
+    conn=openSiteDB()
     cursor = conn.cursor()
     cursor.execute("SELECT category FROM site;")
     alldata = cursor.fetchall()
