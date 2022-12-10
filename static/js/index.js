@@ -118,7 +118,7 @@ html.addEventListener('click', function (event) {
 
 //search
 
-search = function () {
+let search = function () {
     nowPage = -1;
     loading = "ok";
     nextPage = 0;
@@ -127,32 +127,4 @@ search = function () {
     keyword = document.querySelector(".search").value;
     container.innerHTML = "";
     getMoreData();
-}
-
-signinClose = function () {
-    let signin = document.querySelector(".signin");
-    signin.style.display = "none";
-}
-
-signinOpen = function () {
-    let signin = document.querySelector(".signin");
-    let signup = document.querySelector(".signup");
-    if (signup.style.display == "block") {
-        signup.style.display = "none";
-    }
-    signin.style.display = "block";
-}
-
-signupClose = function () {
-    let signup = document.querySelector(".signup");
-    signup.style.display = "none";
-}
-
-signupOpen = function () {
-    let signin = document.querySelector(".signin");
-    let signup = document.querySelector(".signup");
-    if (signin.style.display == "block") {
-        signin.style.display = "none";
-    }
-    signup.style.display = "block";
 }

@@ -60,14 +60,16 @@ body {
     padding: 0;
 }
 
-.menu a {
+.menu li {
     font-size: 16px;
-    /* a為行內元素，超連結只會在字體範圍內，若想點擊整個格子都有超連結須將超連結改為block*/
-    display: block;
     margin-right: 15px;
+    color: #666666;
+    /* a為行內元素，超連結只會在字體範圍內，若想點擊整個格子都有超連結須將超連結改為block*/
+    cursor: pointer;
+}
 
-    /*去掉超連結底線*/
-    text-decoration: none;
+.logout {
+    display: none;
 }
 
 /* ==================================================
