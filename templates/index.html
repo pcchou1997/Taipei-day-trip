@@ -13,7 +13,7 @@
 <body>
     <!-- 導覽列 -->
     <nav class="navbar">
-        <a class="logo" href="#">台北一日遊</a>
+        <a class="logo" href="/">台北一日遊</a>
         <nav class="navbar-list">
             <ul class="menu">
                 <li>預定行程</li>
@@ -46,7 +46,7 @@
             <h3>登入會員帳號</h3>
             <div class="signin_close"><img src="../static/img/icon_close.png" alt="" onclick="signinClose();"></div>
             <input type="text" placeholder="輸入電子信箱" class="signin_input signin_email">
-            <input type="text" placeholder="輸入密碼" class="signin_input signin_password">
+            <input type="password" placeholder="輸入密碼" class="signin_input signin_password">
             <button onclick="signinAccount()">登入帳戶</button>
             <div class="signin_errorMsg"></div>
             <p class="signin_signup" onclick="signupOpen();">還沒有帳戶？點此註冊</p>
@@ -61,7 +61,7 @@
             <div class="signup_close"><img src="../static/img/icon_close.png" alt="" onclick="signupClose();"></div>
             <input type="text" placeholder="輸入姓名" class="signup_input signup_name">
             <input type="text" placeholder="輸入電子郵件" class="signup_input signup_email">
-            <input type="text" placeholder="輸入密碼" class="signup_input signup_password">
+            <input type="password" placeholder="輸入密碼" class="signup_input signup_password">
             <button onclick="signupAccount()">註冊新帳戶</button>
             <div class="signup_errorMsg"></div>
             <p class="signup_signin" onclick="signinOpen();">已經有帳戶了？點此登入</p>
