@@ -43,32 +43,20 @@ body {
 }
 
 .menu {
-
     display: flex;
     /*移除項目符號*/
     list-style-type: none;
     /* 去掉瀏覽器原有margin和padding */
     margin: 0;
     padding: 0;
-
-    /* 固定選單在最上方 */
-    /* position: fixed;
-        top: 0;
-        width: 100%; */
 }
 
-.menu a {
+.menu li {
     font-size: 16px;
-}
-
-.menu a {
     /* a為行內元素，超連結只會在字體範圍內，若想點擊整個格子都有超連結須將超連結改為block*/
-    display: block;
     margin-right: 15px;
-    /* 指定超連結字體顏色 */
     color: #666666;
-    /*去掉超連結底線*/
-    text-decoration: none;
+    cursor: pointer;
 }
 
 /* ==================================================
@@ -163,7 +151,6 @@ body {
 
 .category:hover {
     background-color: rgb(237, 236, 236);
-
 }
 
 /* ==================================================

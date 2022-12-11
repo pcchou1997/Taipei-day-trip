@@ -118,7 +118,7 @@ html.addEventListener('click', function (event) {
 
 //search
 
-search = function () {
+let search = function () {
     nowPage = -1;
     loading = "ok";
     nextPage = 0;

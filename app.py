@@ -2,6 +2,8 @@ from flask import *
 import mysql.connector
 from mysql.connector import pooling
 import math
+import jwt
+from datetime import datetime,timedelta
 # from flask_cors import CORS
 # from flask_cors import cross_origin
 
@@ -13,8 +15,8 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}}) #所有api路徑都可以使用CORS
 # CORS(app)
 
-# 打開資料庫 
-def openDB():
+# 打開 siteDB 資料庫 
+def openSiteDB():
     pool=pooling.MySQLConnectionPool(
         pool_name="mypool",
         pool_size=20,
@@ -27,6 +29,25 @@ def openDB():
     conn = pool.get_connection()
     return conn
 
+# 打開 memberDB 資料庫 
+def openMemberDB():
+    pool=pooling.MySQLConnectionPool(
+        pool_name="mypool2",
+        pool_size=20,
+        pool_reset_session=True,
+        host='localhost',
+        user='root',
+        password='Aaa-860221',
+        db='TaipeiDayTripMemberDB',
+        charset='utf8mb4')
+    conn = pool.get_connection()
+    return conn
+
+# 關閉資料庫 
+def closeDB(conn,cursor):
+    cursor.close()
+    conn.close()
+    
 # api 旅遊景點
 
 @app.route("/api/attractions",methods=["GET"])
@@ -39,7 +60,7 @@ def getAttractions():
     
     head_id = 12*page
     try:
-        conn=openDB()
+        conn=openSiteDB()
         cursor = conn.cursor()
         # 判斷有無keyword，執行對應sql指令
         if keyword != "":
@@ -90,7 +111,7 @@ def getAttractions():
 
 @app.route("/api/attraction/<attractionId>",methods=["GET"])
 def getIdAttractions(attractionId):
-    conn=openDB()
+    conn=openSiteDB()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM site WHERE id=%s;",(attractionId,))
     alldata = cursor.fetchone()
@@ -128,7 +149,7 @@ def getIdAttractions(attractionId):
 
 @app.route("/api/categories",methods=["GET"])
 def getCategoriesAttractions():
-    conn=openDB()
+    conn=openSiteDB()
     cursor = conn.cursor()
     cursor.execute("SELECT category FROM site;")
     alldata = cursor.fetchall()
@@ -146,6 +167,96 @@ def getCategoriesAttractions():
         outData["error"] = True
         outData["message"] = "There is something wrong."
         return jsonify(outData),500
+
+# 註冊新會員 /api/user (POST)
+@app.route("/api/user",methods=["POST"])
+def signup():
+    name = request.json["name"]
+    email = request.json["email"]
+    password = request.json["password"]
+    conn = openMemberDB()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM member WHERE email= %s;",(email,))
+    data = cursor.fetchall()
+    closeDB(conn,cursor)
+    # print("data:",data)
+    outerDict={}
+    try:
+        if data ==[]:
+            conn = openMemberDB()
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO member(name,email,password)values(%s,%s,%s);",(name,email,password))
+            conn.commit() 
+            outerDict["ok"]=True
+            return jsonify(outerDict),200
+        else:
+            outerDict["error"]=True
+            outerDict["message"] = "已有使用者註冊過"
+            return jsonify(outerDict),400
+    except:
+        outerDict["error"]=True
+        outerDict["message"]="Sorry，網頁存在內部錯誤"
+        return jsonify(outerDict),500
+
+# 取得當前登入會員資訊 /api/user/auth (GET)
+@app.route("/api/user/auth",methods=["GET"])
+def getCurrentLoginInfo():
+    token = request.cookies.get("token")
+    if token != None:
+        decodedtoken = jwt.decode(token,"secret", algorithms = ["HS256"])
+        return decodedtoken
+    else:
+       return jsonify(None)
+
+# 登入會員帳戶 /api/user/auth (PUT)
+@app.route("/api/user/auth",methods=["PUT"])
+def signin():
+    email = request.json.get("email") 
+    password = request.json.get("password") 
+    conn = openMemberDB()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM member WHERE email=%s and password=%s;",(email,password,))
+    data = cursor.fetchone()
+    closeDB(conn,cursor)
+    # print("data:",data)
+    try:
+        if data != None:
+            res = jsonify({
+            "ok": True
+            })
+
+            # JWT 編碼簽名
+            expire = datetime.now() + timedelta(days=7)
+            payload = {
+                'data': {  # 内容，一般存放使用者資訊
+                    "id": data[0],
+                    "name":data[1],
+                    "email": data[2],
+                    },
+                'exp': expire,  # 過期時間
+                'iat': datetime.now(),  # 開始時間
+                # 'iss': 'PC',  # 簽名
+            }
+            token = jwt.encode(payload, "secret", algorithm = "HS256")
+
+            # 設定Cookies
+            res.set_cookie(key = 'token', value = token, expires = expire)
+            return res,200
+        else:
+            res = {"error":True,"message":"email或密碼錯誤"}
+            return res,400
+    except:
+        res = {"error":True,"message":"伺服器內部錯誤"}
+        return res,500
+    
+# 登出會員帳戶 /api/user/auth (DELETE)
+@app.route("/api/user/auth",methods=["DELETE"])
+def logout():
+    # 刪除cookies
+    res = jsonify({"ok": True})
+    res.set_cookie(key='token',expires=0)
+    return res
+
 
 # Pages
 
