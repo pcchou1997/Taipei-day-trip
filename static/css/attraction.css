@@ -68,6 +68,11 @@ body {
     cursor: pointer;
 }
 
+.menu a {
+    text-decoration: none;
+    color: #666666;
+}
+
 .logout {
     display: none;
 }
@@ -167,10 +172,6 @@ body {
     cursor: pointer;
     padding: 0;
 }
-
-
-
-
 
 .carousel_track-container {
     height: 100%;
