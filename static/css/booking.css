@@ -72,6 +72,7 @@
     position: absolute;
     top: 0px;
     right: 0px;
+    cursor: pointer;
 }
 
 .contact div,
@@ -79,6 +80,7 @@
     font-size: 16px;
     color: #666666;
     margin-bottom: 15px;
+    word-wrap: break-word;
 }
 
 .contact p {
@@ -93,7 +95,7 @@
     height: 38px;
     border: 1px solid #E8E8E8;
     padding: 10px;
-    word-wrap: break-word;
+    word-break: break-all;
     color: #000000;
 }
 
@@ -142,8 +144,38 @@
 }
 
 @media screen and (max-width: 600px) {
-    .journey_info {
+    .journey {
         display: block;
+        /* padding-bottom: 0px; */
     }
 
+    /* .journey_address{
+        margin-bottom: 40px;
+    } */
+
+    .journey img:first-child {
+        width: 100%;
+        margin: 35px 0px;
+        object-fit: cover;
+    }
+
+    .journey_info div:first-child {
+        margin-top: 0px;
+        margin-bottom: 20px;
+    }
+
+    .journey_info {
+        margin: 0px 0px;
+        position: relative;
+        width: 100%;
+    }
+
+    .journey_delete {
+        right: 0px;
+        top: auto;
+    }
+
+    .booking_headline {
+        margin-bottom: 0px;
+    }
 }

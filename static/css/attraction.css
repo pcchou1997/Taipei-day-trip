@@ -113,8 +113,6 @@ body {
     object-fit: cover;
 }
 
-
-
 .carousel_button {
     position: absolute;
     top: 50%;
@@ -328,7 +326,7 @@ body {
     margin-left: 5px;
 }
 
-.button {
+.boooking_button {
     width: 154px;
     height: 36px;
     font-size: 19px;
@@ -336,6 +334,7 @@ body {
     color: #FFFFFF;
     border-radius: 5px;
     border: none;
+    cursor: pointer;
 }
 
 .info {

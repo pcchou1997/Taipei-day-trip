@@ -18,7 +18,7 @@
             <a class="logo" href="/">台北一日遊</a>
             <nav class="navbar-list">
                 <ul class="menu">
-                    <li><a href="/booking" class="booking">預定行程</a></li>
+                    <li class="booking">預定行程</li>
                     <li class="login" onclick="signinOpen();">登入/註冊</li>
                     <li class="logout" onclick="signout();">登出系統</li>
                 </ul>
@@ -58,22 +58,15 @@
 
     <!-- 主內容 -->
     <div class="booking_content">
-        <h2 class="booking_headline">您好，，待預定的行程如下：</h2>
+        <h2 class="booking_headline"></h2>
         <div class="journey">
-            <img src="" alt="">
+            <img class="journey_img" src="" alt="">
             <div class="journey_info">
-                <div>台北一日遊：
-                    <p></p>
-                </div>
-                <div><b>日期：</b>
-                    <p></p>
-                </div>
-                <div><b>費用：</b>
-                    <p></p>
-                </div>
-                <div><b>地點：</b>
-                    <p></p>
-                </div>
+                <div class="journey_attraction"></div>
+                <div class="journey_date"></div>
+                <div class="journey_time"></div>
+                <div class="journey_price"></div>
+                <div class="journey_address"></div>
                 <img src="../static/img/icon_delete.png" alt="icon_delete" class="journey_delete">
             </div>
         </div>
@@ -83,7 +76,7 @@
                 <p>聯絡姓名：</p><input type="text">
             </div>
             <div>
-                <p>聯絡信箱：</p><input type="text">
+                <p>聯絡信箱：</p><input type="email">
             </div>
             <div>
                 <p>手機號碼：</p><input type="text">
@@ -92,13 +85,13 @@
         </div>
         <div class="payment">
             <h2>信用卡付款資訊</h2>
-            <div>卡片號碼：<input type="text"></div>
-            <div>過期時間：<input type="password"></div>
-            <div>驗證密碼：<input type="text"></div>
+            <div>卡片號碼：<input type="text" placeholder="**** **** **** ****"></div>
+            <div>過期時間：<input type="text" placeholder="MM / YY"></div>
+            <div>驗證密碼：<input type="password" placeholder="CVV"></div>
         </div>
         <div class="confirm">
-            <div>總價：</div>
-            <button class="journey_pay">確認訂購並付款</button>
+            <div class="confirm_totalCost"></div>
+            <button class="journey_order">確認訂購並付款</button>
         </div>
     </div>
 
@@ -109,7 +102,7 @@
         <div>COPYRIGHT @ 2022 台北一日遊</div>
     </footer>
     <!-- footer end-->
-    <script src="../static/js/attraction.js"></script>
+
     <script src="../static/js/login.js"></script>
     <script src="../static/js/booking.js"></script>
 </body>

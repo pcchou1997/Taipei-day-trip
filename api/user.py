@@ -13,7 +13,7 @@ def signup():
     name = request.json["name"]
     email = request.json["email"]
     password = request.json["password"]
-    conn = openMemberDB()
+    conn = openDB()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM member WHERE email= %s;",(email,))
     data = cursor.fetchall()
@@ -22,7 +22,7 @@ def signup():
     outerDict={}
     try:
         if data ==[]:
-            conn = openMemberDB()
+            conn = openDB()
             cursor = conn.cursor()
             cursor.execute("INSERT INTO member(name,email,password)values(%s,%s,%s);",(name,email,password))
             conn.commit() 
@@ -52,7 +52,7 @@ def getCurrentLoginInfo():
 def signin():
     email = request.json.get("email") 
     password = request.json.get("password") 
-    conn = openMemberDB()
+    conn = openDB()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM member WHERE email=%s and password=%s;",(email,password,))
     data = cursor.fetchone()

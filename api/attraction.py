@@ -16,17 +16,17 @@ def getAttractions():
     
     head_id = 12*page
     try:
-        conn=openSiteDB()
+        conn=openDB()
         cursor = conn.cursor()
         # 判斷有無keyword，執行對應sql指令
         if keyword != "":
-            cursor.execute("SELECT * FROM site WHERE name REGEXP %s OR category= %s LIMIT %s, %s;",(str(keyword),str(keyword),head_id,12))
+            cursor.execute("SELECT * FROM attraction WHERE name REGEXP %s OR category= %s LIMIT %s, %s;",(str(keyword),str(keyword),head_id,12))
             alldata = cursor.fetchall()
             cursor.close()
             conn.close()
         else:
             
-            cursor.execute("SELECT * FROM site LIMIT %s, %s;",(head_id,12))
+            cursor.execute("SELECT * FROM attraction LIMIT %s, %s;",(head_id,12))
             alldata = cursor.fetchall()
             cursor.close()
             conn.close()
@@ -67,9 +67,9 @@ def getAttractions():
 
 @attraction_blueprint.route("/api/attraction/<attractionId>",methods=["GET"])
 def getIdAttractions(attractionId):
-    conn=openSiteDB()
+    conn=openDB()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM site WHERE id=%s;",(attractionId,))
+    cursor.execute("SELECT * FROM attraction WHERE id=%s;",(attractionId,))
     alldata = cursor.fetchone()
     cursor.close()
     conn.close()
@@ -105,9 +105,9 @@ def getIdAttractions(attractionId):
 
 @attraction_blueprint.route("/api/categories",methods=["GET"])
 def getCategoriesAttractions():
-    conn=openSiteDB()
+    conn=openDB()
     cursor = conn.cursor()
-    cursor.execute("SELECT category FROM site;")
+    cursor.execute("SELECT category FROM attraction;")
     alldata = cursor.fetchall()
     cursor.close()
     conn.close()
