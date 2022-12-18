@@ -4,7 +4,7 @@ import mysql.connector
 
 # 讀取JSON檔案
 
-with open("/Users/ms951236/taipei-day-trip/data/taipei-attractions.json") as f:
+with open("taipei-attractions.json",mode="r") as f:
     jsondata = json.load(f)
     datas = jsondata['result']['results']
     # print(datas)
