@@ -216,9 +216,9 @@ function booking() {
         }
         else if (data["error"] == true && data["message"] == "未登入系統") {
             alert("請先登入系統")
-            let signup = document.querySelector(".signup");
-            console.log(signup);
-            signup.style.display = "block";
+            let signin = document.querySelector(".signin");
+            console.log(signin);
+            signin.style.display = "block";
         }
         else {
             alert("Sorry，網頁存在內部錯誤，請再試一次")
