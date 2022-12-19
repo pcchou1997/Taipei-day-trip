@@ -10,10 +10,9 @@ const carouselNav = document.querySelector(".carousel_nav");
 
 const BOOKING_BUTTON = document.querySelector(".boooking_button");
 const BOOKING_DATE = document.querySelector(".date");
-const BOOKING_TIME = document.querySelector("[name=time]:checked");
 const BOOKING_PRICE = document.querySelector(".price");
-
-
+const MORNING = document.querySelector("#morning");
+const AFTERNOON = document.querySelector("#afternoon");
 
 let track;
 let slides;
@@ -25,12 +24,17 @@ let attractionId;
 orderMoring = function () {
     BOOKING_PRICE.innerHTML = "新台幣 2000 元";
     BOOKING_PRICE.className = 'price 2000';
+    AFTERNOON.removeAttribute("checked");
+    MORNING.setAttribute("checked", "checked");
+
 }
 
 // 點按「下半天」顯示「2500元」
 orderAfternoon = function () {
     BOOKING_PRICE.innerHTML = "新台幣 2500 元";
     BOOKING_PRICE.className = 'price 2500';
+    MORNING.removeAttribute("checked");
+    AFTERNOON.setAttribute("checked", "checked");
 }
 
 fetch("/api" + window.location.pathname).then(response => {
@@ -172,6 +176,8 @@ dotsNav.addEventListener("click", e => {
 
 BOOKING_BUTTON.addEventListener("click", booking, false);
 function booking() {
+    const BOOKING_TIME = document.querySelector("[name=time]:checked");
+
     // 日期
     BOOKING_DATE_value = BOOKING_DATE.value;
     console.log(BOOKING_DATE_value)
