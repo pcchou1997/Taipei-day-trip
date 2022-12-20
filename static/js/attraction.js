@@ -1,31 +1,47 @@
-orderMoring = function () {
-    let price = document.querySelector(".price")
-    price.innerHTML = "新台幣 2000 元";
-}
-orderAfternoon = function () {
-    let price = document.querySelector(".price")
-    price.innerHTML = "新台幣 2500 元";
-}
+const name = document.querySelector(".name")
+const catMrt = document.querySelector(".catMrt")
+const description = document.querySelector(".description")
+const addressTitle = document.querySelector(".addressTitle")
+const address = document.querySelector(".address")
+const transTitle = document.querySelector(".transTitle")
+const transportation = document.querySelector(".transportation")
+const carouselTrack = document.querySelector(".carousel_track");
+const carouselNav = document.querySelector(".carousel_nav");
 
-let name = document.querySelector(".name")
-let catMrt = document.querySelector(".catMrt")
-let description = document.querySelector(".description")
-let addressTitle = document.querySelector(".addressTitle")
-let address = document.querySelector(".address")
-let transTitle = document.querySelector(".transTitle")
-let transportation = document.querySelector(".transportation")
-let carouselTrack = document.querySelector(".carousel_track");
-let carouselNav = document.querySelector(".carousel_nav");
+const BOOKING_BUTTON = document.querySelector(".boooking_button");
+const BOOKING_DATE = document.querySelector(".date");
+const BOOKING_PRICE = document.querySelector(".price");
+const MORNING = document.querySelector("#morning");
+const AFTERNOON = document.querySelector("#afternoon");
 
 let track;
 let slides;
 let slideWidth;
 let dots;
+let attractionId;
+
+// 點按「上半天」顯示「2000元」
+orderMoring = function () {
+    BOOKING_PRICE.innerHTML = "新台幣 2000 元";
+    BOOKING_PRICE.className = 'price 2000';
+    AFTERNOON.removeAttribute("checked");
+    MORNING.setAttribute("checked", "checked");
+
+}
+
+// 點按「下半天」顯示「2500元」
+orderAfternoon = function () {
+    BOOKING_PRICE.innerHTML = "新台幣 2500 元";
+    BOOKING_PRICE.className = 'price 2500';
+    MORNING.removeAttribute("checked");
+    AFTERNOON.setAttribute("checked", "checked");
+}
 
 fetch("/api" + window.location.pathname).then(response => {
     return response.json();
 }).then(function (data) {
-    console.log(data);
+    // console.log(data);
+    attractionId = data["data"]["id"];
     name.innerHTML = data["data"]["name"];
     catMrt.innerHTML = data["data"]["category"] + " at " + data["data"]["mrt"];
     description.innerHTML = data["data"]["description"];
@@ -123,8 +139,8 @@ prevButton.addEventListener("click", e => {
     updateDots(currentDot, prevDot);
     // /* 讓使用者在第一頁不可使用往前一頁、在最後一頁不可使用往後一頁 */
     // hideShowArrows(slides, prevButton, nextButton, prevIndex);
-
 })
+
 // 右按鈕：下一個slide
 nextButton.addEventListener("click", e => {
     let currentSlide = track.querySelector(".current-slide");
@@ -154,5 +170,64 @@ dotsNav.addEventListener("click", e => {
     moveToSlide(track, currentSlide, targetSlide);
     updateDots(currentDot, targetDot);
     hideShowArrows(slides, prevButton, nextButton, targetIndex);
-
 })
+
+// 預定行程按鈕，取得預定表單資訊傳入後端
+
+BOOKING_BUTTON.addEventListener("click", booking, false);
+function booking() {
+    const BOOKING_TIME = document.querySelector("[name=time]:checked");
+
+    // 日期
+    BOOKING_DATE_value = BOOKING_DATE.value;
+    console.log(BOOKING_DATE_value)
+
+    // 時間
+    BOOKING_TIME_value = BOOKING_TIME.value;
+    console.log(BOOKING_TIME_value)
+
+    // 價格
+    if (BOOKING_PRICE.getAttribute('class').indexOf('2000') > -1) { // 找到顯示開始index，找不到顯示-1
+        BOOKING_PRICE_value = '2000'
+    }
+    else {
+        BOOKING_PRICE_value = '2500'
+    }
+
+    // 圖片
+    const BOOKING_IMAGE = document.querySelector(".carousel_image");
+    BOOKING_IMAGE_src = BOOKING_IMAGE.src
+
+    // 寫入資料庫
+    fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify({
+            "attractionId": attractionId,
+            "date": BOOKING_DATE_value,
+            "time": BOOKING_TIME_value,
+            "price": BOOKING_PRICE_value,
+            "image": BOOKING_IMAGE_src
+        })
+    }).then(response => {
+        return response.json();
+    }).then(function (data) {
+        console.log(data)
+        if (data["ok"] == true) {
+            alert("已加入「預定行程」");
+            setTimeout(() => (location.href = "/booking"), 1000);
+        }
+        else if (data["error"] == true && data["message"] == "請選擇日期") {
+            alert("請選擇日期")
+        }
+        else if (data["error"] == true && data["message"] == "未登入系統") {
+            alert("請先登入系統")
+            let signin = document.querySelector(".signin");
+            console.log(signin);
+            signin.style.display = "block";
+        }
+        else {
+            alert("Sorry，網頁存在內部錯誤，請再試一次")
+        }
+    })
+}

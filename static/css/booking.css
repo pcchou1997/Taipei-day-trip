@@ -1,0 +1,181 @@
+.booking_content {
+    position: relative;
+    top: 100px;
+}
+
+.booking_headline {
+    width: 1000px;
+    margin: 0 auto;
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 35px;
+}
+
+.journey,
+.contact,
+.payment,
+.confirm {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 0px 10px;
+}
+
+.contact,
+.payment {
+    padding-top: 44px;
+    padding-bottom: 45px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.payment {
+    padding-bottom: 40px;
+}
+
+.contact div:last-child {
+    font-weight: bold;
+}
+
+.journey {
+    display: flex;
+    position: relative;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.journey img:first-child {
+    width: 250px;
+    height: 200px;
+    margin: 0px 8px;
+}
+
+.journey_info {
+    width: 700px;
+    margin-left: 22px;
+}
+
+.journey_info div {
+    margin-top: 20px;
+    color: #666666;
+}
+
+.journey_info div:first-child {
+    margin-top: 5px;
+    margin-bottom: 30px;
+    font-size: 16px;
+    color: #448899;
+    font-weight: bold;
+}
+
+.journey_delete {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+}
+
+.contact div,
+.payment div {
+    font-size: 16px;
+    color: #666666;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+}
+
+.contact p {
+    vertical-align: middle;
+    display: inline;
+    font-size: 16px;
+}
+
+.contact input,
+.payment input {
+    width: 200px;
+    height: 38px;
+    border: 1px solid #E8E8E8;
+    padding: 10px;
+    word-break: break-all;
+    color: #000000;
+}
+
+.contact h2,
+.payment h2 {
+    font-size: 19px;
+}
+
+.confirm {
+    text-align: right;
+}
+
+.confirm div {
+    font-weight: bold;
+    margin-top: 43px;
+}
+
+.confirm button {
+    font-size: 19px;
+    background-color: #448899;
+    color: #FFFFFF;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    margin-top: 25px;
+    margin-bottom: 62px;
+}
+
+@media screen and (max-width: 1000px) {
+    .booking_headline {
+        width: 100%;
+        padding: 0px 10px;
+    }
+
+    .journey,
+    .contact,
+    .payment,
+    .confirm {
+        width: 100%;
+    }
+
+    .journey_delete {
+        right: 10px;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .journey {
+        display: block;
+        /* padding-bottom: 0px; */
+    }
+
+    /* .journey_address{
+        margin-bottom: 40px;
+    } */
+
+    .journey img:first-child {
+        width: 100%;
+        margin: 35px 0px;
+        object-fit: cover;
+    }
+
+    .journey_info div:first-child {
+        margin-top: 0px;
+        margin-bottom: 20px;
+    }
+
+    .journey_info {
+        margin: 0px 0px;
+        position: relative;
+        width: 100%;
+    }
+
+    .journey_delete {
+        right: 0px;
+        top: auto;
+    }
+
+    .booking_headline {
+        margin-bottom: 0px;
+    }
+}

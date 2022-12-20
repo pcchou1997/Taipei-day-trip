@@ -17,7 +17,7 @@
             <a class="logo" href="/">台北一日遊</a>
             <nav class="navbar-list">
                 <ul class="menu">
-                    <li>預定行程</li>
+                    <li class="booking">預定行程</li>
                     <li class="login" onclick="signinOpen();">登入/註冊</li>
                     <li class="logout" onclick="signout();">登出系統</li>
                 </ul>
@@ -88,28 +88,33 @@
             <div class="orderGuild">
                 <div class="orderTitle"><b>訂購導覽行程</b></div>
                 <div class="orderintro">以此景點為中心的一日行程，帶您探索城市角落故事</div>
+
+                <!-- 日期 -->
                 <b>選擇日期：</b><input type="date" class="date">
                 <br>
+
+                <!-- 時間 -->
                 <div class="select">
                     <b>選擇時間：</b>
-                    <label class="container">上半天
-                        <input type="radio" name="time" value="morning" class="orderTime" checked="checked"
+                    <label for="morning" class="container">上半天
+                        <input type="radio" name="time" value="morning" class="orderTime" checked="checked" id="morning"
                             onclick="orderMoring()">
                         <span class="checkmark"></span>
                     </label>
-                    <label class="container">下半天
-                        <input type="radio" name="time" value="afternoon" class="orderTime" onclick="orderAfternoon()">
+                    <label for="afternoon" class="container">下半天
+                        <input type="radio" name="time" value="afternoon" class="orderTime" id="afternoon"
+                            onclick="orderAfternoon()">
                         <span class="checkmark"></span>
                     </label>
                 </div>
-                <!-- <input type="radio" name="time" value="morning" class="orderTime" checked="checked"
-                    onclick="orderMoring()">上半天
-                <input type="radio" name="time" value="afternoon" class="orderTime" onclick="orderAfternoon()">下半天 -->
+
+                <!-- 費用 -->
                 <div class="orderPrice">
                     <p><b>導覽費用：</b></p>
-                    <p class="price">新台幣 2000 元</p>
+                    <p class="price 2000">新台幣 2000 元</p>
                 </div>
-                <button class="button">開始預約行程</button>
+
+                <button class="boooking_button">開始預約行程</button>
             </div>
         </div>
     </section>

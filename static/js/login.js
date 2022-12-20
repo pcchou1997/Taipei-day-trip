@@ -9,6 +9,7 @@ let signin_password = document.querySelector(".signin_password");
 let signup_name = document.querySelector(".signup_name");
 let signup_email = document.querySelector(".signup_email");
 let signup_password = document.querySelector(".signup_password");
+let BOOKING = document.querySelector(".booking");
 
 // signin 
 
@@ -157,3 +158,19 @@ let signout = function () {
         }
     })
 }
+
+// booking
+
+BOOKING.addEventListener('click', function () {
+    fetch("/api/user/auth", { method: "GET" }).then(response => {
+        return response.json();
+    }).then(function (userData) {
+        if (userData == null) {
+            signinOpen();
+        }
+        else {
+            location.href = "/booking";
+        }
+
+    })
+}, false);
