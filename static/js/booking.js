@@ -53,14 +53,6 @@ fetch("/api/booking", { method: "GET" }).then(response => {
 }).then(function (data) {
     console.log("data: ", data)
 
-    attractionId = data["data"]["attraction"]["id"];;
-    attractionName = data["data"]["attraction"]["name"];
-    attractionAddress = data["data"]["attraction"]["address"];
-    attractionImage = data["data"]["attraction"]["image"][0];
-    oderPrice = data["price"];
-    oderDate = data["date"];
-    oderTime = data["time"];
-
     if (data["data"] == null) {
         BOOKING_HEADLINE.innerHTML = "您好，" + userName + "，目前無預定的行程。"
         JOURNEY.style.display = "none";
@@ -70,6 +62,13 @@ fetch("/api/booking", { method: "GET" }).then(response => {
         JOURNEY_DELETE.style.display = "none";
     }
     else {
+        attractionId = data["data"]["attraction"]["id"];
+        attractionName = data["data"]["attraction"]["name"];
+        attractionAddress = data["data"]["attraction"]["address"];
+        attractionImage = data["data"]["attraction"]["image"][0];
+        oderPrice = data["price"];
+        oderDate = data["date"];
+        oderTime = data["time"];
         JOURNEY_ATTRACTION.innerHTML = "台北一日遊：" + attractionName;
         JOURNEY_DATE.innerHTML = "<b>日期： </b>" + oderDate;
         JOURNEY_TIME.innerHTML = "<b>時間： </b>" + oderTime;
@@ -273,6 +272,20 @@ JOURNEY_ORDER.addEventListener('click', function (event) {
                 return response.json();
             }).then(function (data) {
                 console.log(data)
+                console.log(data["data"]["payment"]["status"])
+                if (data["data"]["payment"]["status"] == 0) {
+                    location.href = "/thankyou?number=" + data["data"]["number"]
+                }
+                else if (data.message == "登入身份、訂購者名稱不符，訂單建立失敗") {
+                    alert("訂購者請填寫自己名字");
+                }
+                else if (data.message == "任一資訊欄未填寫，訂單建立失敗") {
+                    alert("任一資訊欄不可留白");
+                }
+                else {
+                    alert("很抱歉，伺服器內部錯誤，請再試一次");
+                    console.log("很抱歉，伺服器內部錯誤，請再試一次");
+                }
             })
             // send prime to your server, to pay with Pay by Prime API .
             // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
