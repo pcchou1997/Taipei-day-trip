@@ -1,4 +1,3 @@
-let userName;
 const BOOKING_HEADLINE = document.querySelector(".booking_headline");
 const JOURNEY_ATTRACTION = document.querySelector(".journey_attraction");
 const JOURNEY_DATE = document.querySelector(".journey_date");
@@ -19,6 +18,8 @@ const CONTACT_NAME = document.querySelector(".contact_name");
 const CONTACT_EMAIL = document.querySelector(".contact_email");
 const CONTACT_PHONE = document.querySelector(".contact_phone");
 
+let userName;
+
 let oderPrice;
 let oderDate;
 let oderTime;
@@ -35,13 +36,12 @@ let prime;
 fetch("/api/user/auth", { method: "GET" }).then(response => {
     return response.json();
 }).then(function (userData) {
-    console.log(userData)
+    console.log("userData:", userData)
     if (userData == null) {
         location.href = "/"
     }
     else {
         userName = userData["data"]["name"]
-        console.log("userName: ", userName)
         BOOKING_HEADLINE.innerHTML = "您好，" + userName + "，待預定的行程如下："
     }
 })
@@ -51,7 +51,7 @@ fetch("/api/user/auth", { method: "GET" }).then(response => {
 fetch("/api/booking", { method: "GET" }).then(response => {
     return response.json();
 }).then(function (data) {
-    console.log("data: ", data)
+    console.log("bookingData: ", data)
 
     if (data["data"] == null) {
         BOOKING_HEADLINE.innerHTML = "您好，" + userName + "，目前無預定的行程。"
@@ -103,13 +103,6 @@ JOURNEY_DELETE.addEventListener('click', function () {
         }
     });
 }, false);
-
-// 確認訂購且付款
-// JOURNEY_ORDER.addEventListener('click', payJourney, false);
-// let orderJourney = function () {
-
-// }
-
 
 // 初始化金鑰
 TPDirect.setupSDK(126978, 'app_vz7D4ifWryGUutM9U0SdQHGnhgIpH8HgrUAb0wnazIENvLuZ1hDfHAVPtusx', 'sandbox')
@@ -224,72 +217,72 @@ TPDirect.card.onUpdate(function (update) {
 
 // 觸發 getPrime 方法
 JOURNEY_ORDER.addEventListener('click', function (event) {
-    TPDirect.card.getPrime(function (result) {
-        // 取得 TapPay Fields 的 status
-        const tappayStatus = TPDirect.card.getTappayFieldsStatus()
+    if (CONTACT_NAME.value == "" || CONTACT_EMAIL.value == "" || CONTACT_PHONE.value == "") {
+        alert("任一資訊欄不可留白");
+    }
+    else if (CONTACT_NAME.value != userName) {
+        alert("訂購者請填寫自己名字");
+    }
+    else {
+        TPDirect.card.getPrime(function (result) {
+            // 取得 TapPay Fields 的 status
+            const tappayStatus = TPDirect.card.getTappayFieldsStatus()
 
-        // 確認是否可以 getPrime
-        if (tappayStatus.canGetPrime === false) {
-            alert('can not get prime');
-            return;
-        }
-
-        // Get prime: tappay 會將客戶敏感的卡片轉為一個不具敏感資訊, 得到的值稱為prime token, 需再將此值給後端
-        TPDirect.card.getPrime((result) => {
-            if (result.status !== 0) {
-                alert('get prime error ' + result.msg);
+            // 確認是否可以 getPrime
+            if (tappayStatus.canGetPrime === false) {
+                alert('can not get prime');
                 return;
             }
-            alert('get prime 成功，prime: ' + result.card.prime);
 
-            // 連線至後端，帶上所有訂購資訊
-            prime = result.card.prime;
-            fetch('/api/orders', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-                body: JSON.stringify({
-                    "prime": prime,
-                    "order": {
-                        "price": oderPrice,
-                        "trip": {
-                            "attraction": {
-                                "id": attractionId,
-                                "name": attractionName,
-                                "address": attractionAddress,
-                                "image": attractionImage
+            // Get prime: tappay 會將客戶敏感的卡片轉為一個不具敏感資訊, 得到的值稱為prime token, 需再將此值給後端
+            TPDirect.card.getPrime((result) => {
+                if (result.status !== 0) {
+                    alert('get prime error ' + result.msg);
+                    return;
+                }
+                alert('get prime 成功，prime: ' + result.card.prime);
+
+                // 連線至後端，帶上所有訂購資訊
+                prime = result.card.prime;
+                fetch('/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                    body: JSON.stringify({
+                        "prime": prime,
+                        "order": {
+                            "price": oderPrice,
+                            "trip": {
+                                "attraction": {
+                                    "id": attractionId,
+                                    "name": attractionName,
+                                    "address": attractionAddress,
+                                    "image": attractionImage
+                                },
+                                "date": oderDate,
+                                "time": oderTime
                             },
-                            "date": oderDate,
-                            "time": oderTime
-                        },
-                        "contact": {
-                            "name": CONTACT_NAME.value,
-                            "email": CONTACT_EMAIL.value,
-                            "phone": CONTACT_PHONE.value
+                            "contact": {
+                                "name": CONTACT_NAME.value,
+                                "email": CONTACT_EMAIL.value,
+                                "phone": CONTACT_PHONE.value
+                            }
                         }
+                    })
+                }).then(response => {
+                    return response.json();
+                }).then(function (data) {
+                    console.log(data)
+                    if (data["data"]["payment"]["status"] == 0) {
+                        location.href = "/thankyou?number=" + data["data"]["number"]
+                    }
+                    else {
+                        alert("很抱歉，伺服器內部錯誤，請再試一次");
+                        console.log("很抱歉，伺服器內部錯誤，請再試一次");
                     }
                 })
-            }).then(response => {
-                return response.json();
-            }).then(function (data) {
-                console.log(data)
-                console.log(data["data"]["payment"]["status"])
-                if (data["data"]["payment"]["status"] == 0) {
-                    location.href = "/thankyou?number=" + data["data"]["number"]
-                }
-                else if (data.message == "登入身份、訂購者名稱不符，訂單建立失敗") {
-                    alert("訂購者請填寫自己名字");
-                }
-                else if (data.message == "任一資訊欄未填寫，訂單建立失敗") {
-                    alert("任一資訊欄不可留白");
-                }
-                else {
-                    alert("很抱歉，伺服器內部錯誤，請再試一次");
-                    console.log("很抱歉，伺服器內部錯誤，請再試一次");
-                }
+                // send prime to your server, to pay with Pay by Prime API .
+                // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
             })
-            // send prime to your server, to pay with Pay by Prime API .
-            // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
         })
-    })
-}
-)
+    }
+})
