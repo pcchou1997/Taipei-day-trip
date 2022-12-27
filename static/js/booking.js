@@ -240,7 +240,7 @@ JOURNEY_ORDER.addEventListener('click', function (event) {
                     alert('get prime error ' + result.msg);
                     return;
                 }
-                alert('get prime 成功，prime: ' + result.card.prime);
+                //alert('get prime 成功，prime: ' + result.card.prime);
 
                 // 連線至後端，帶上所有訂購資訊
                 prime = result.card.prime;
