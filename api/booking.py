@@ -100,8 +100,6 @@ def booking():
                     closeDB(conn,cursor)
                     return jsonify({"ok": True}),200
                     
-                    
-
             # 未登入系統
             else:
                 return jsonify({"error": True, "message": "未登入系統"}),403

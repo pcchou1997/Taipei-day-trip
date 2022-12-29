@@ -73,25 +73,28 @@
         <div class="contact">
             <h2>您的聯絡資訊</h2>
             <div>
-                <p>聯絡姓名：</p><input type="text">
+                <p>聯絡姓名：</p><input type="text" class="contact_name">
             </div>
             <div>
-                <p>聯絡信箱：</p><input type="email">
+                <p>聯絡信箱：</p><input type="email" class="contact_email">
             </div>
             <div>
-                <p>手機號碼：</p><input type="text">
+                <p>手機號碼：</p><input type="text" class="contact_phone">
             </div>
             <div>請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
         </div>
         <div class="payment">
             <h2>信用卡付款資訊</h2>
-            <div>卡片號碼：<input type="text" placeholder="**** **** **** ****"></div>
-            <div>過期時間：<input type="text" placeholder="MM / YY"></div>
-            <div>驗證密碼：<input type="password" placeholder="CVV"></div>
+            <label for="card-number">卡片號碼：<div class="tpfield" id="card-number"></div>
+            </label>
+            <label for="card-expiration-date">過期時間：<div class="tpfield" id="card-expiration-date"></div>
+            </label>
+            <label for="card-ccv">驗證密碼：<div class="tpfield" id="card-ccv"></div>
+            </label>
         </div>
         <div class="confirm">
             <div class="confirm_totalCost"></div>
-            <button class="journey_order">確認訂購並付款</button>
+            <button class="journey_order" id="submit">確認訂購並付款</button>
         </div>
     </div>
 
@@ -102,9 +105,10 @@
         <div>COPYRIGHT @ 2022 台北一日遊</div>
     </footer>
     <!-- footer end-->
-
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
     <script src="../static/js/login.js"></script>
     <script src="../static/js/booking.js"></script>
+
 </body>
 
 </html>

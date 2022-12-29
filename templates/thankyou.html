@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台北一日遊</title>
+    <link rel="stylesheet" href="../static/css/attraction.css">
+    <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="stylesheet" href="../static/css/thankyou.css">
+</head>
+
+<body>
+    <!-- 導覽列 -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a class="logo" href="/">台北一日遊</a>
+            <nav class="navbar-list">
+                <ul class="menu">
+                    <li class="booking">預定行程</li>
+                    <li class="login" onclick="signinOpen();">登入/註冊</li>
+                    <li class="logout" onclick="signout();">登出系統</li>
+                </ul>
+            </nav>
+        </div>
+    </nav>
+    <!-- 登入 -->
+    <div class="signin">
+        <div class="signin_head"></div>
+        <div class="signin_content">
+            <h3>登入會員帳號</h3>
+            <div class="signin_close"><img src="../static/img/icon_close.png" alt="" onclick="signinClose();"></div>
+            <input type="text" placeholder="輸入電子信箱" class="signin_input signin_email">
+            <input type="password" placeholder="輸入密碼" class="signin_input signin_password">
+            <button onclick="signinAccount()">登入帳戶</button>
+            <div class="signin_errorMsg"></div>
+            <p class="signin_signup" onclick="signupOpen();">還沒有帳戶？點此註冊</p>
+        </div>
+    </div>
+    <!-- 登入 end -->
+    <!-- 註冊 -->
+    <div class="signup">
+        <div class="signup_head"></div>
+        <div class="signup_content">
+            <h3>註冊會員帳號</h3>
+            <div class="signup_close"><img src="../static/img/icon_close.png" alt="" onclick="signupClose();"></div>
+            <input type="text" placeholder="輸入姓名" class="signup_input signup_name">
+            <input type="text" placeholder="輸入電子郵件" class="signup_input signup_email">
+            <input type="password" placeholder="輸入密碼" class="signup_input signup_password">
+            <button onclick="signupAccount()">註冊新帳戶</button>
+            <div class="signup_errorMsg"></div>
+            <p class="signup_signin" onclick="signinOpen();">已經有帳戶了？點此登入</p>
+        </div>
+    </div>
+    <!-- 註冊 end -->
+    <!-- 導覽列end -->
+
+    <!-- 主內容 -->
+    <div class="content">
+        <div class="thankyou">
+            <h1>已完成訂購，您的訂單編號為：</h1>
+            <h1 class="serialNumber"></h1>
+            <div>若有任何疑問，請撥打客服0800-000-000，我們將誠心為您服務。</div>
+            <div>祝福您有個美好的一天！</div>
+            <div class="goIndex">返回首頁</div>
+        </div>
+    </div>
+    <!-- 主內容end -->
+
+    <!-- footer -->
+    <footer class="footer">
+        <div>COPYRIGHT @ 2022 台北一日遊</div>
+    </footer>
+    <!-- footer end-->
+    <script src="../static/js/thankyou.js"></script>
+    <script src="../static/js/login.js"></script>
+
+</body>
+
+</html>

@@ -4,6 +4,7 @@ from function.accessDB import *
 from api.booking import booking_blueprint
 from api.user import user_blueprint
 from api.attraction import attraction_blueprint
+from api.order import order_blueprint
 
 # from flask_cors import CORS
 # from flask_cors import cross_origin
@@ -16,6 +17,7 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.register_blueprint(booking_blueprint)
 app.register_blueprint(user_blueprint)
 app.register_blueprint(attraction_blueprint)
+app.register_blueprint(order_blueprint)
 
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}}) #所有api路徑都可以使用CORS
 # CORS(app)

@@ -11,6 +11,10 @@
     margin-bottom: 35px;
 }
 
+/* -------------------------------------------------------------------- */
+/*                            1. journey                                */
+/* -------------------------------------------------------------------- */
+
 .journey,
 .contact,
 .payment,
@@ -75,8 +79,11 @@
     cursor: pointer;
 }
 
-.contact div,
-.payment div {
+/* -------------------------------------------------------------------- */
+/*                            2. contact                                */
+/* -------------------------------------------------------------------- */
+
+.contact div {
     font-size: 16px;
     color: #666666;
     margin-bottom: 15px;
@@ -104,6 +111,22 @@
     font-size: 19px;
 }
 
+/* -------------------------------------------------------------------- */
+/*                            3. payment                                */
+/* -------------------------------------------------------------------- */
+
+.tpfield {
+    height: 40px;
+    width: 300px;
+    border: 1px solid gray;
+    margin: 5px 0;
+    padding: 5px;
+}
+
+/* -------------------------------------------------------------------- */
+/*                            4. confirm                                */
+/* -------------------------------------------------------------------- */
+
 .confirm {
     text-align: right;
 }
@@ -111,6 +134,15 @@
 .confirm div {
     font-weight: bold;
     margin-top: 43px;
+}
+
+.tpfield {
+    height: 40px;
+    width: 300px;
+    border: 1px solid gray;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .confirm button {
@@ -123,6 +155,8 @@
     margin-top: 25px;
     margin-bottom: 62px;
 }
+
+
 
 @media screen and (max-width: 1000px) {
     .booking_headline {
