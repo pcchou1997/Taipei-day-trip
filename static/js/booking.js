@@ -13,6 +13,9 @@ const JOURNEY = document.querySelector(".journey");
 const CONTACT = document.querySelector(".contact");
 const PAYMENT = document.querySelector(".payment");
 const CONFIRM = document.querySelector(".confirm");
+const CONFIRM_MSG = document.querySelector(".confirm_msg");
+const CONFIRM_MSG_ICON = document.querySelector(".confirm_msg_icon");
+const CONFIRM_MSG_TEXT = document.querySelector(".confirm_msg_text");
 
 const CONTACT_NAME = document.querySelector(".contact_name");
 const CONTACT_EMAIL = document.querySelector(".contact_email");
@@ -121,7 +124,7 @@ let fields = {
     },
     ccv: {
         element: '#card-ccv',
-        placeholder: 'ccv'
+        placeholder: 'CCV'
     }
 }
 
@@ -131,23 +134,23 @@ TPDirect.card.setup({
     styles: {
         // Style all elements
         'input': {
-            'color': 'gray'
+            // 'color': 'gray'
         },
         // Styling ccv field
         'input.ccv': {
-            // 'font-size': '16px'
+            'font-size': '16px'
         },
         // Styling expiration-date field
         'input.expiration-date': {
-            // 'font-size': '16px'
+            'font-size': '16px'
         },
         // Styling card-number field
         'input.card-number': {
-            // 'font-size': '16px'
+            'font-size': '16px'
         },
         // style focus state
         ':focus': {
-            // 'color': 'black'
+            'color': 'black'
         },
         // style valid state
         '.valid': {
@@ -217,11 +220,17 @@ TPDirect.card.onUpdate(function (update) {
 
 // 觸發 getPrime 方法
 JOURNEY_ORDER.addEventListener('click', function (event) {
+    CONFIRM_MSG.style.display = "none";
+    CONTACT_NAME.style.borderColor = "#E8E8E8";
+
     if (CONTACT_NAME.value == "" || CONTACT_EMAIL.value == "" || CONTACT_PHONE.value == "") {
-        alert("任一資訊欄不可留白");
+        CONFIRM_MSG_TEXT.innerHTML = "任一資訊欄不可留白";
+        CONFIRM_MSG.style.display = "flex";
     }
     else if (CONTACT_NAME.value != userName) {
-        alert("訂購者請填寫自己名字");
+        CONFIRM_MSG_TEXT.innerHTML = "訂購者請填寫自己名字";
+        CONFIRM_MSG.style.display = "flex";
+        CONTACT_NAME.style.borderColor = "red";
     }
     else {
         TPDirect.card.getPrime(function (result) {
@@ -230,7 +239,9 @@ JOURNEY_ORDER.addEventListener('click', function (event) {
 
             // 確認是否可以 getPrime
             if (tappayStatus.canGetPrime === false) {
-                alert('can not get prime');
+                CONFIRM_MSG_TEXT.innerHTML = "無法取得prime，付款失敗";
+                CONFIRM_MSG.style.display = "flex";
+                // alert('can not get prime');
                 return;
             }
 
@@ -276,8 +287,8 @@ JOURNEY_ORDER.addEventListener('click', function (event) {
                         location.href = "/thankyou?number=" + data["data"]["number"]
                     }
                     else {
-                        alert("很抱歉，伺服器內部錯誤，請再試一次");
-                        console.log("很抱歉，伺服器內部錯誤，請再試一次");
+                        CONFIRM_MSG_TEXT.innerHTML = "伺服器內部錯誤，請再試一次";
+                        CONFIRM_MSG.style.display = "flex";
                     }
                 })
                 // send prime to your server, to pay with Pay by Prime API .

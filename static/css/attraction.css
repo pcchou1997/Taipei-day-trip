@@ -329,6 +329,24 @@ body {
     margin-left: 5px;
 }
 
+.order_msg {
+    margin-top: 5px;
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.order_msg_icon {
+    filter: invert(19%) sepia(55%) saturate(4511%) hue-rotate(352deg) brightness(103%) contrast(139%);
+    width: 16px;
+    height: 16px;
+}
+
+.order_msg_text {
+    margin-left: 5px;
+    color: #ff0000;
+}
+
 .boooking_button {
     width: 154px;
     height: 36px;
