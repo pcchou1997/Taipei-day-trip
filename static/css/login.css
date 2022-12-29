@@ -47,6 +47,25 @@
     margin-bottom: 10px;
     box-shadow: none;
     border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.signin_content button:hover,
+.signup_content button:hover {
+    opacity: 0.8;
+}
+
+.signin_content p,
+.signup_content p {
+    cursor: pointer;
+    z-index: 1;
+    transition: 0.3s;
+}
+
+.signin_content p:hover,
+.signup_content p:hover {
+    color: black;
 }
 
 .signin_input,
@@ -61,18 +80,20 @@
     margin-bottom: 10px;
 }
 
-.signin_content img,
-.signup_content img {
+.signin_close img,
+.signup_close img {
     width: 16px;
     height: 16px;
     position: absolute;
     right: 17px;
     top: 27px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.signin_content img:hover,
-.signup_content img:hover {
-    background-color: #CCCCCC;
+.signin_close img:hover,
+.signup_close img:hover {
+    color: black;
 }
 
 .signin_signup,

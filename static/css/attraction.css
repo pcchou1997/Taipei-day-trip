@@ -66,11 +66,11 @@ body {
     color: #666666;
     /* a為行內元素，超連結只會在字體範圍內，若想點擊整個格子都有超連結須將超連結改為block*/
     cursor: pointer;
+    transition: 0.3s;
 }
 
-.menu a {
-    text-decoration: none;
-    color: #666666;
+.menu li:hover {
+    font-weight: bold;
 }
 
 .logout {
@@ -129,12 +129,14 @@ body {
     background-image: url(../img/btn_rightArrow.png);
     right: 15px;
     opacity: .7;
+    transition: 0.3s;
 }
 
 .carousel_button_left {
     background-image: url(../img/btn_leftArrow.png);
     left: 15px;
     opacity: .6;
+    transition: 0.3s;
 }
 
 .carousel_button_right:hover {
@@ -245,6 +247,7 @@ body {
     height: 35px;
     margin-bottom: 15px;
     margin-left: 5px;
+    cursor: pointer;
 }
 
 .orderTime {
@@ -266,6 +269,11 @@ body {
     cursor: pointer;
     margin-right: 8px;
     margin-left: 10px;
+    transition: 0.3s;
+}
+
+.container:hover {
+    color: black;
 }
 
 .container input {
@@ -283,11 +291,6 @@ body {
     background-color: white;
     border-radius: 50%;
 }
-
-.checkmark:hover {
-    background-color: #d8ebf0;
-}
-
 
 .checkmark:after {
     height: 18px;
@@ -335,6 +338,11 @@ body {
     border-radius: 5px;
     border: none;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.boooking_button:hover {
+    opacity: 0.8;
 }
 
 .info {

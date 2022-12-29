@@ -154,9 +154,13 @@
     border: none;
     margin-top: 25px;
     margin-bottom: 62px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-
+.confirm button:hover {
+    opacity: 0.8;
+}
 
 @media screen and (max-width: 1000px) {
     .booking_headline {

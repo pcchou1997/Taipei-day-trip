@@ -23,6 +23,12 @@ body {
 
 .navbar {
     height: 54px;
+    width: 100%;
+    align-items: center;
+}
+
+.navbar-content {
+    height: 54px;
     width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -36,7 +42,6 @@ body {
     line-height: 34px;
     font-weight: bold;
     text-decoration: none;
-    margin-left: 10px;
     width: 150px;
     height: 34px;
 
@@ -59,10 +64,8 @@ body {
     cursor: pointer;
 }
 
-.menu a {
-    text-decoration: none;
-    font-size: 16px;
-    color: #666666;
+.menu li:hover {
+    font-weight: bold;
 }
 
 /* ==================================================
@@ -136,6 +139,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.searchbutton:hover {
+    background: #2b5964;
+}
+
+.searchbutton:hover::before {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    width: 60px;
+    border-radius: 5px;
+    background: rgb(246, 246, 207, .6);
+    content: '點按搜尋';
+    font-size: 10px;
 }
 
 .categories {
@@ -152,11 +172,12 @@ body {
     z-index: 1;
     padding: 10px;
     border: gray solid 1px;
-
 }
 
 .category:hover {
-    background-color: rgb(237, 236, 236);
+    background-color: #448899;
+    color: white;
+    cursor: pointer;
 }
 
 /* ==================================================
@@ -189,7 +210,6 @@ body {
     overflow: hidden;
 }
 
-
 .site_img {
     position: relative;
     width: 100%;
@@ -197,7 +217,13 @@ body {
     height: 197px;
     overflow: hidden;
     background-size: cover;
+    opacity: 1.0;
 }
+
+.grid_small a:hover .site_img {
+    opacity: 0.8;
+}
+
 
 .site_name {
     position: absolute;
@@ -291,6 +317,11 @@ body {
         width: 95%;
     }
 
+    .navbar-content {
+        width: 100%;
+        margin: 0px 10px;
+    }
+
     .lego {
         width: 90%;
     }
@@ -309,9 +340,6 @@ body {
         padding-top: 62.5%;
         height: auto;
     }
-
-
-
 
 }
 
