@@ -1,7 +1,5 @@
 .booking_content {
-    position: relative;
-    top: 100px;
-    padding-bottom: 62px;
+    padding-top: 100px;
 }
 
 .booking_headline {
@@ -199,7 +197,6 @@
     .journey_delete {
         right: 10px;
     }
-
 }
 
 @media screen and (max-width: 600px) {
@@ -207,10 +204,6 @@
         display: block;
         /* padding-bottom: 0px; */
     }
-
-    /* .journey_address{
-        margin-bottom: 40px;
-    } */
 
     .journey img:first-child {
         width: 100%;

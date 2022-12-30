@@ -14,7 +14,6 @@ body {
     border: 0;
     height: 100%;
     font-family: 'Noto Sans TC', '微軟正黑體', sans-serif;
-    ;
 }
 
 /* ==================================================
@@ -39,12 +38,9 @@ body {
 .logo {
     color: #448899;
     font-size: 30px;
-    line-height: 34px;
     font-weight: bold;
     text-decoration: none;
     width: 150px;
-    height: 34px;
-
 }
 
 .menu {
@@ -265,9 +261,6 @@ body {
     margin: 0px;
     color: #757575;
     font-size: 16px;
-
-    /* border: 1px; */
-    /* border-color: gray; */
 }
 
 .site_category {
@@ -290,21 +283,39 @@ body {
                     footer 
 ===================================================*/
 
-
 .footer {
     width: 100%;
     height: 104px;
+    /* position: relative;
+    bottom: -100px; */
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #757575;
-    margin: 55px 0px 0px 0px;
-
 }
 
 .footer div {
     font-size: 16px;
     color: #FFFFFF;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+
+.main {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    padding-bottom: 40px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -340,7 +351,6 @@ body {
         padding-top: 62.5%;
         height: auto;
     }
-
 }
 
 @media screen and (max-width: 600px) {

@@ -21,7 +21,7 @@
     width: 100px;
     height: 50px;
     background-color: #448899;
-    padding: 15px 18px;
+    padding: 14px 18px;
     border: none;
     border-radius: 5px;
     color: white;
@@ -32,12 +32,10 @@
 
 .goIndex:hover {
     opacity: 0.8;
-
 }
 
 @media screen and (max-width: 1000px) {
     .thankyou {
         width: 100%;
     }
-
 }

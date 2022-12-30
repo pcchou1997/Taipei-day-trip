@@ -11,57 +11,59 @@
 </head>
 
 <body>
-    <!-- 導覽列 -->
-    <nav class="navbar">
-        <div class="navbar-content">
-            <a class="logo" href="/">台北一日遊</a>
-            <nav class="navbar-list">
-                <ul class="menu">
-                    <li class="booking">預定行程</li>
-                    <li class="login" onclick="signinOpen();">登入/註冊</li>
-                    <li class="logout" onclick="signout();">登出系統</li>
-                </ul>
-            </nav>
-        </div>
-    </nav>
-    <!-- 登入 -->
-    <div class="signin">
-        <div class="signin_head"></div>
-        <div class="signin_content">
-            <h3>登入會員帳號</h3>
-            <div class="signin_close"><img src="../static/img/icon_close.png" alt="" onclick="signinClose();"></div>
-            <input type="text" placeholder="輸入電子信箱" class="signin_input signin_email">
-            <input type="password" placeholder="輸入密碼" class="signin_input signin_password">
-            <button onclick="signinAccount()">登入帳戶</button>
-            <div class="signin_errorMsg"></div>
-            <p class="signin_signup" onclick="signupOpen();">還沒有帳戶？點此註冊</p>
-        </div>
-    </div>
-    <!-- 登入 end -->
-    <!-- 註冊 -->
-    <div class="signup">
-        <div class="signup_head"></div>
-        <div class="signup_content">
-            <h3>註冊會員帳號</h3>
-            <div class="signup_close"><img src="../static/img/icon_close.png" alt="" onclick="signupClose();"></div>
-            <input type="text" placeholder="輸入姓名" class="signup_input signup_name">
-            <input type="text" placeholder="輸入電子郵件" class="signup_input signup_email">
-            <input type="password" placeholder="輸入密碼" class="signup_input signup_password">
-            <button onclick="signupAccount()">註冊新帳戶</button>
-            <div class="signup_errorMsg"></div>
-            <p class="signup_signin" onclick="signinOpen();">已經有帳戶了？點此登入</p>
-        </div>
-    </div>
-    <!-- 註冊 end -->
-    <!-- 導覽列end -->
 
-    <!-- 主內容 -->
-    <section class="section">
-        <div class="carousel">
-            <!-- 圖片輪播 -->
-            <div class="carousel_track-container">
-                <ul class="carousel_track">
-                    <!-- <li class="carousel_slide current-slide"><img class="carousel_image"
+    <div class="main">
+        <!-- 導覽列 -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <a class="logo" href="/">台北一日遊</a>
+                <nav class="navbar-list">
+                    <ul class="menu">
+                        <li class="booking">預定行程</li>
+                        <li class="login" onclick="signinOpen();">登入/註冊</li>
+                        <li class="logout" onclick="signout();">登出系統</li>
+                    </ul>
+                </nav>
+            </div>
+        </nav>
+        <!-- 登入 -->
+        <div class="signin">
+            <div class="signin_head"></div>
+            <div class="signin_content">
+                <h3>登入會員帳號</h3>
+                <div class="signin_close"><img src="../static/img/icon_close.png" alt="" onclick="signinClose();"></div>
+                <input type="text" placeholder="輸入電子信箱" class="signin_input signin_email">
+                <input type="password" placeholder="輸入密碼" class="signin_input signin_password">
+                <button onclick="signinAccount()">登入帳戶</button>
+                <div class="signin_errorMsg"></div>
+                <p class="signin_signup" onclick="signupOpen();">還沒有帳戶？點此註冊</p>
+            </div>
+        </div>
+        <!-- 登入 end -->
+        <!-- 註冊 -->
+        <div class="signup">
+            <div class="signup_head"></div>
+            <div class="signup_content">
+                <h3>註冊會員帳號</h3>
+                <div class="signup_close"><img src="../static/img/icon_close.png" alt="" onclick="signupClose();"></div>
+                <input type="text" placeholder="輸入姓名" class="signup_input signup_name">
+                <input type="text" placeholder="輸入電子郵件" class="signup_input signup_email">
+                <input type="password" placeholder="輸入密碼" class="signup_input signup_password">
+                <button onclick="signupAccount()">註冊新帳戶</button>
+                <div class="signup_errorMsg"></div>
+                <p class="signup_signin" onclick="signinOpen();">已經有帳戶了？點此登入</p>
+            </div>
+        </div>
+        <!-- 註冊 end -->
+        <!-- 導覽列end -->
+
+        <!-- 主內容 -->
+        <section class="section">
+            <div class="carousel">
+                <!-- 圖片輪播 -->
+                <div class="carousel_track-container">
+                    <ul class="carousel_track">
+                        <!-- <li class="carousel_slide current-slide"><img class="carousel_image"
                             src="https://cdn.searchenginejournal.com/wp-content/uploads/2022/04/reverse-image-search-627b7e49986b0-sej-760x400.png"
                             alt=""></li>
                     <li class="carousel_slide"><img class="carousel_image"
@@ -69,79 +71,81 @@
                     <li class="carousel_slide"><img class="carousel_image"
                             src="https://images.pexels.com/photos/355508/pexels-photo-355508.jpeg?auto=compress&cs=tinysrgb&w=600"
                             alt=""></li> -->
-                </ul>
-            </div>
-            <!-- 讓使用者在第一頁不可使用往前一頁、在最後一頁不可使用往後一頁，在carousel_button_left後面新增is-hidden -->
-            <button class="carousel_button carousel_button_left"></button>
-            <button class="carousel_button carousel_button_right"></button>
-            <div class="carousel_nav">
-                <!-- <button class="carousel_indicator current-slide"></button>
+                    </ul>
+                </div>
+                <!-- 讓使用者在第一頁不可使用往前一頁、在最後一頁不可使用往後一頁，在carousel_button_left後面新增is-hidden -->
+                <button class="carousel_button carousel_button_left"></button>
+                <button class="carousel_button carousel_button_right"></button>
+                <div class="carousel_nav">
+                    <!-- <button class="carousel_indicator current-slide"></button>
                 <button class="carousel_indicator"></button>
                 <button class="carousel_indicator"></button> -->
+                </div>
+
+
             </div>
+            <div class="order">
+                <div class="name"></div>
+                <div class="catMrt"></div>
+                <div class="orderGuild">
+                    <div class="orderTitle"><b>訂購導覽行程</b></div>
+                    <div class="orderintro">以此景點為中心的一日行程，帶您探索城市角落故事</div>
 
+                    <!-- 日期 -->
+                    <b>選擇日期：</b><input type="date" class="date">
+                    <br>
 
-        </div>
-        <div class="order">
-            <div class="name"></div>
-            <div class="catMrt"></div>
-            <div class="orderGuild">
-                <div class="orderTitle"><b>訂購導覽行程</b></div>
-                <div class="orderintro">以此景點為中心的一日行程，帶您探索城市角落故事</div>
+                    <!-- 時間 -->
+                    <div class="select">
+                        <b>選擇時間：</b>
+                        <label for="morning" class="container">上半天
+                            <input type="radio" name="time" value="morning" class="orderTime" checked="checked"
+                                id="morning" onclick="orderMoring()">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label for="afternoon" class="container">下半天
+                            <input type="radio" name="time" value="afternoon" class="orderTime" id="afternoon"
+                                onclick="orderAfternoon()">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
 
-                <!-- 日期 -->
-                <b>選擇日期：</b><input type="date" class="date">
-                <br>
+                    <!-- 費用 -->
+                    <div class="orderPrice">
+                        <p><b>導覽費用：</b></p>
+                        <p class="price 2000">新台幣 2000 元</p>
+                    </div>
 
-                <!-- 時間 -->
-                <div class="select">
-                    <b>選擇時間：</b>
-                    <label for="morning" class="container">上半天
-                        <input type="radio" name="time" value="morning" class="orderTime" checked="checked" id="morning"
-                            onclick="orderMoring()">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label for="afternoon" class="container">下半天
-                        <input type="radio" name="time" value="afternoon" class="orderTime" id="afternoon"
-                            onclick="orderAfternoon()">
-                        <span class="checkmark"></span>
-                    </label>
-                </div>
+                    <!-- 預約按鈕 -->
+                    <button class="boooking_button">開始預約行程</button>
 
-                <!-- 費用 -->
-                <div class="orderPrice">
-                    <p><b>導覽費用：</b></p>
-                    <p class="price 2000">新台幣 2000 元</p>
-                </div>
-
-                <!-- 預約按鈕 -->
-                <button class="boooking_button">開始預約行程</button>
-
-                <!-- 預約 msg -->
-                <div class="order_msg">
-                    <img class="order_msg_icon" src="../static/img/warning.svg" alt="warning_icon">
-                    <div class="order_msg_text"></div>
+                    <!-- 預約 msg -->
+                    <div class="order_msg">
+                        <img class="order_msg_icon" src="../static/img/warning.svg" alt="warning_icon">
+                        <div class="order_msg_text"></div>
+                    </div>
                 </div>
             </div>
+        </section>
+        <div class="info">
+            <div class="description"></div>
+            <div class="infoTitle addressTitle"></div>
+            <div class="address"></div>
+            <div class="infoTitle transTitle"></div>
+            <div class="transportation"></div>
         </div>
-    </section>
-    <div class="info">
-        <div class="description"></div>
-        <div class="infoTitle addressTitle"></div>
-        <div class="address"></div>
-        <div class="infoTitle transTitle"></div>
-        <div class="transportation"></div>
+        <!-- 主內容end -->
     </div>
-
-    <!-- 主內容end -->
 
     <!-- footer -->
     <footer class="footer">
         <div>COPYRIGHT @ 2022 台北一日遊</div>
     </footer>
     <!-- footer end-->
+
     <script src="../static/js/attraction.js"></script>
     <script src="../static/js/login.js"></script>
+
 </body>
 
 </html>
