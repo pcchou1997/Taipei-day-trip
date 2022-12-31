@@ -114,3 +114,11 @@
 .logout {
     display: none;
 }
+
+.signin_email_msg {
+    display: none;
+    color: red;
+    font-size: 15px;
+    text-align: left;
+    margin-bottom: 10px;
+}
