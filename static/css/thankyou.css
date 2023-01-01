@@ -17,7 +17,13 @@
     font-size: 24px;
 }
 
-.goIndex {
+.redirect_button {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.goIndex,
+.goMember {
     width: 100px;
     height: 50px;
     background-color: #448899;
@@ -30,8 +36,17 @@
     transition: 0.3s;
 }
 
-.goIndex:hover {
+.goMember {
+    margin-left: 10px;
+}
+
+.goIndex:hover,
+.goMember:hover {
     opacity: 0.8;
+}
+
+.serialNumber {
+    margin-bottom: 50px;
 }
 
 @media screen and (max-width: 1000px) {
