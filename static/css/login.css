@@ -115,10 +115,24 @@
     display: none;
 }
 
-.signin_email_msg {
+.signin_email_msg,
+.signup_email_msg {
     display: none;
-    color: red;
-    font-size: 15px;
-    text-align: left;
     margin-bottom: 10px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.signin_email_msg_text,
+.signup_email_msg_text {
+    color: red;
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.signup_email_msg_icon,
+.signin_email_msg_icon {
+    filter: invert(19%) sepia(55%) saturate(4511%) hue-rotate(352deg) brightness(103%) contrast(139%);
+    width: 16px;
+    height: 16px;
 }

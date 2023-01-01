@@ -51,7 +51,10 @@
                 <h3>登入會員帳號</h3>
                 <div class="signin_close"><img src="../static/img/icon_close.png" alt="" onclick="signinClose();"></div>
                 <input type="text" placeholder="輸入電子信箱" class="signin_input signin_email">
-                <div class="signin_email_msg"></div>
+                <div class="signin_email_msg">
+                    <img class="signin_email_msg_icon" src="../static/img/warning.svg" alt="warning_icon">
+                    <div class="signin_email_msg_text"></div>
+                </div>
                 <input type="password" placeholder="輸入密碼" class="signin_input signin_password">
                 <button onclick="signinAccount()">登入帳戶</button>
                 <div class="signin_errorMsg"></div>
@@ -67,6 +70,10 @@
                 <div class="signup_close"><img src="../static/img/icon_close.png" alt="" onclick="signupClose();"></div>
                 <input type="text" placeholder="輸入姓名" class="signup_input signup_name">
                 <input type="text" placeholder="輸入電子郵件" class="signup_input signup_email">
+                <div class="signup_email_msg">
+                    <img class="signup_email_msg_icon" src="../static/img/warning.svg" alt="warning_icon">
+                    <div class="signup_email_msg_text"></div>
+                </div>
                 <input type="password" placeholder="輸入密碼" class="signup_input signup_password">
                 <button onclick="signupAccount()">註冊新帳戶</button>
                 <div class="signup_errorMsg"></div>

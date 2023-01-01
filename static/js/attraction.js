@@ -186,7 +186,6 @@ function booking() {
 
     // 日期
     BOOKING_DATE_value = BOOKING_DATE.value;
-    console.log(BOOKING_DATE_value)
 
     // 時間
     BOOKING_TIME_value = BOOKING_TIME.value;
@@ -203,64 +202,91 @@ function booking() {
     const BOOKING_IMAGE = document.querySelector(".carousel_image");
     BOOKING_IMAGE_src = BOOKING_IMAGE.src
 
-    // 檢查日期，js使用0~11表示1~12月
-    if (BOOKING_DATE_value == "") {
-        BOOKING_MSG_TEXT.innerHTML = "請選擇日期"
-        BOOKING_MSG.style.display = "flex"
-        BOOKING_DATE.style.borderColor = "red";
+    // 檢查登入狀態
+    fetch('/api/user/auth').then(response => {
+        return response.json();
+    }).then(function (data) {
 
-    }
-    else {
-        let date_now = new Date();
-        let order_date_split = BOOKING_DATE_value.split("-");
-        let order_date = new Date(order_date_split[0], order_date_split[1] - 1, order_date_split[2]);
-        if (order_date <= date_now) {
-            BOOKING_MSG_TEXT.innerHTML = "請選擇今日(" + (date_now.getMonth() + 1) + "/" + date_now.getDate() + ")過後的日期"
-            BOOKING_MSG.style.display = "flex";
-            BOOKING_DATE.style.borderColor = "red";
+        // 未登入
+        if (data == null) {
+            BOOKING_MSG_TEXT.innerHTML = "請先登入系統";
+            BOOKING_MSG.style.display = "flex"
+            let signin = document.querySelector(".signin");
+
+            setTimeout(() => (signin.style.display = "block"), 1000);
         }
+
+        // 已登入
         else {
 
-            // 寫入資料庫
-            fetch('/api/booking', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-                body: JSON.stringify({
-                    "attractionId": attractionId,
-                    "date": BOOKING_DATE_value,
-                    "time": BOOKING_TIME_value,
-                    "price": BOOKING_PRICE_value,
-                    "image": BOOKING_IMAGE_src
-                })
-            }).then(response => {
-                return response.json();
-            }).then(function (data) {
-                console.log(data)
-                if (data["ok"] == true) {
-                    BOOKING_MSG_ICON.remove();
-                    BOOKING_MSG_TEXT.innerHTML = "預約成功！"
-                    BOOKING_MSG.style.display = "block"
-                    BOOKING_MSG_TEXT.style.color = "#448899";
-                    setTimeout(() => (location.href = "/booking"), 1000);
-                }
-                else if (data["error"] == true && data["message"] == "請選擇日期") {
-                    BOOKING_MSG_TEXT.innerHTML = "請選擇日期";
-                    BOOKING_MSG.style.display = "flex"
+            // 檢查日期，js使用0~11表示1~12月
+
+            // 日期為空
+            if (BOOKING_DATE_value == "") {
+                BOOKING_MSG_TEXT.innerHTML = "請選擇日期"
+                BOOKING_MSG.style.display = "flex"
+                BOOKING_DATE.style.borderColor = "red";
+
+            }
+
+            // 日期不為空
+            else {
+                let date_now = new Date();
+                let order_date_split = BOOKING_DATE_value.split("-");
+                let order_date = new Date(order_date_split[0], order_date_split[1] - 1, order_date_split[2]);
+
+                // 日期為今日(含)以前的日期
+                if (order_date <= date_now) {
+                    BOOKING_MSG_TEXT.innerHTML = "請選擇今日(" + (date_now.getMonth() + 1) + "/" + date_now.getDate() + ")過後的日期"
+                    BOOKING_MSG.style.display = "flex";
                     BOOKING_DATE.style.borderColor = "red";
                 }
-                else if (data["error"] == true && data["message"] == "未登入系統") {
-                    BOOKING_MSG_TEXT.innerHTML = "請先登入系統";
-                    BOOKING_MSG.style.display = "flex"
-                    let signin = document.querySelector(".signin");
 
-                    setTimeout(() => (signin.style.display = "block"), 1000);
-                }
+                // 日期為今日以後的日期
                 else {
-                    BOOKING_MSG_TEXT.innerHTML = "伺服器內部錯誤，請再試一次";
-                    BOOKING_MSG.style.display = "flex"
+
+                    // 寫入資料庫
+                    fetch('/api/booking', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                        body: JSON.stringify({
+                            "attractionId": attractionId,
+                            "date": BOOKING_DATE_value,
+                            "time": BOOKING_TIME_value,
+                            "price": BOOKING_PRICE_value,
+                            "image": BOOKING_IMAGE_src
+                        })
+                    }).then(response => {
+                        return response.json();
+                    }).then(function (data) {
+                        console.log(data)
+                        if (data["ok"] == true) {
+                            BOOKING_MSG_ICON.remove();
+                            BOOKING_MSG_TEXT.innerHTML = "預約成功！"
+                            BOOKING_MSG.style.display = "block"
+                            BOOKING_MSG_TEXT.style.color = "#448899";
+                            setTimeout(() => (location.href = "/booking"), 1000);
+                        }
+                        else if (data["error"] == true && data["message"] == "請選擇日期") {
+                            BOOKING_MSG_TEXT.innerHTML = "請選擇日期";
+                            BOOKING_MSG.style.display = "flex"
+                            BOOKING_DATE.style.borderColor = "red";
+                        }
+                        else if (data["error"] == true && data["message"] == "未登入系統") {
+                            BOOKING_MSG_TEXT.innerHTML = "請先登入系統";
+                            BOOKING_MSG.style.display = "flex"
+                            let signin = document.querySelector(".signin");
+
+                            setTimeout(() => (signin.style.display = "block"), 1000);
+                        }
+                        else {
+                            BOOKING_MSG_TEXT.innerHTML = "伺服器內部錯誤，請再試一次";
+                            BOOKING_MSG.style.display = "flex"
+                        }
+                    })
                 }
-            })
+            }
         }
-    }
+    })
 }
 BOOKING_BUTTON.addEventListener("click", booking, false);
