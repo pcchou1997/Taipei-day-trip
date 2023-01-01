@@ -71,7 +71,8 @@ body {
     font-weight: bold;
 }
 
-.logout {
+.logout,
+.member {
     display: none;
 }
 

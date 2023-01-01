@@ -8,7 +8,7 @@
     <title>台北一日遊</title>
     <link rel="stylesheet" href="../static/css/attraction.css">
     <link rel="stylesheet" href="../static/css/login.css">
-    <link rel="stylesheet" href="../static/css/booking.css">
+    <link rel="stylesheet" href="../static/css/member.css">
 </head>
 
 <body>
@@ -68,48 +68,17 @@
         <!-- 導覽列end -->
 
         <!-- 主內容 -->
-        <div class="booking_content">
-            <h2 class="booking_headline"></h2>
-            <div class="journey">
-                <img class="journey_img" src="" alt="">
-                <div class="journey_info">
-                    <div class="journey_attraction"></div>
-                    <div class="journey_date"></div>
-                    <div class="journey_time"></div>
-                    <div class="journey_price"></div>
-                    <div class="journey_address"></div>
-                    <img src="../static/img/icon_delete.png" alt="icon_delete" class="journey_delete">
+        <div class="member_content">
+            <div class="member_container">
+                <h1>會員基本資料</h1>
+                <div class="member_info">
+                    <div class="member_info_name">姓名：</div>
+                    <div class="member_info_email">e-mail：</div>
                 </div>
             </div>
-            <div class="contact">
-                <h2>您的聯絡資訊</h2>
-                <div>
-                    <p>聯絡姓名：</p><input type="text" class="contact_name">
-                </div>
-                <div>
-                    <p>聯絡信箱：</p><input type="email" class="contact_email">
-                </div>
-                <div>
-                    <p>手機號碼：</p><input type="text" class="contact_phone">
-                </div>
-                <div>請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
-            </div>
-            <div class="payment">
-                <h2>信用卡付款資訊</h2>
-                <label for="card-number">卡片號碼：<div class="tpfield" id="card-number"></div>
-                </label>
-                <label for="card-expiration-date">過期時間：<div class="tpfield" id="card-expiration-date"></div>
-                </label>
-                <label for="card-ccv">驗證密碼：<div class="tpfield" id="card-ccv"></div>
-                </label>
-            </div>
-            <div class="confirm">
-                <div class="confirm_totalCost"></div>
-                <button class="journey_order" id="submit">確認訂購並付款</button>
-                <div class="confirm_msg">
-                    <img class="confirm_msg_icon" src="../static/img/warning.svg" alt="warning_icon">
-                    <div class="confirm_msg_text"></div>
-                </div>
+            <div class="member_history">
+                <h1>歷史訂單</h1>
+                <div class="history_orders"></div>
             </div>
         </div>
         <!-- 主內容end -->
@@ -121,9 +90,8 @@
     </footer>
     <!-- footer end-->
 
-    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
     <script src="../static/js/login.js"></script>
-    <script src="../static/js/booking.js"></script>
+    <script src="../static/js/memer.js"></script>
 
 </body>
 

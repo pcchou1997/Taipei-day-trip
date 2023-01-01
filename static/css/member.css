@@ -1,0 +1,104 @@
+/* ------------ member_content ------------*/
+
+.member_content {
+    width: 1200px;
+    margin: 0px auto;
+    padding-top: 100px;
+}
+
+.member_content h3 {
+    font-size: 19px;
+}
+
+/* ------------ member_container ------------*/
+
+.member_container {
+    border-bottom: 1px solid #eeededf0;
+}
+
+.member_container>h1 {
+    font-size: 20px;
+}
+
+.member_history>h1 {
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.member_container div {
+    margin-top: 10px;
+}
+
+.member_info {
+    width: 95%;
+    margin: 2.5%;
+}
+
+/* ------------ member_history ------------*/
+
+.history_order {
+    width: 95%;
+    padding: 30px 30px;
+    border: 1px solid #eeededf0;
+    border-radius: 5px;
+    background-color: #eeededf0;
+    margin: 2.5%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.history_order:hover {
+    background-color: #c4c2c2f0;
+}
+
+/* ------------ orderNumber ------------*/
+
+.orderNumber>h3 {
+    font-size: 19px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+/* ------------ attraction_container ------------*/
+
+.attraction_container {
+    display: none;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.attraction_container h3 {
+    margin-top: 0px;
+}
+
+/* ------------ attraction_image ------------*/
+
+.attraction_image {
+    width: 25%;
+}
+
+.attraction_image img {
+    width: 100%;
+    object-fit: cover;
+}
+
+/* ------------ attraction_info ------------*/
+
+.attraction_info {
+    width: 33%;
+}
+
+.attraction_info div {
+    margin-bottom: 10px;
+}
+
+/* ------------ contact_info ------------*/
+
+.contact_info {
+    width: 30%;
+}
+
+.contact_info div {
+    margin-bottom: 10px;
+}

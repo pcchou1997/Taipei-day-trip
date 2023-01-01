@@ -16,6 +16,7 @@ const SIGNIN_EMAIL_MSG = document.querySelector(".signin_email_msg");
 const SIGNUP_EMAIL_MSG = document.querySelector(".signup_email_msg");
 const REGEX_EMAIL = new RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
 
+const MEMBER = document.querySelector(".member");
 
 // signin 
 
@@ -146,6 +147,7 @@ let checkLogin = function () {
         if (data != null) {
             LOGIN.style.display = "none"
             LOGOUT.style.display = "block"
+            MEMBER.style.display = "block"
         }
     })
 }
@@ -202,7 +204,6 @@ SIGNIN_EMAIL.addEventListener("change", function () {
         SIGNIN_EMAIL_MSG_TEXT.innerHTML = "請輸入正確的email格式";
         SIGNIN_EMAIL_MSG.style.display = "flex"
     }
-
 });
 
 SIGNUP_EMAIL.addEventListener("change", function () {
@@ -224,5 +225,17 @@ SIGNUP_EMAIL.addEventListener("change", function () {
         SIGNUP_EMAIL_MSG_TEXT.innerHTML = "請輸入正確的email格式";
         SIGNUP_EMAIL_MSG.style.display = "flex"
     }
-
 });
+
+MEMBER.addEventListener('click', function () {
+    fetch("/api/user/auth", { method: "GET" }).then(response => {
+        return response.json();
+    }).then(function (userData) {
+        if (userData == null) {
+            signinOpen();
+        }
+        else {
+            location.href = "/member";
+        }
+    })
+}, false);
