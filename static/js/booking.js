@@ -221,6 +221,7 @@ TPDirect.card.onUpdate(function (update) {
 // 觸發 getPrime 方法
 JOURNEY_ORDER.addEventListener('click', function (event) {
     CONFIRM_MSG.style.display = "none";
+    CONFIRM_MSG_ICON.style.display = "block";
     CONTACT_NAME.style.borderColor = "#E8E8E8";
 
     if (CONTACT_NAME.value == "" || CONTACT_EMAIL.value == "" || CONTACT_PHONE.value == "") {
@@ -233,6 +234,11 @@ JOURNEY_ORDER.addEventListener('click', function (event) {
         CONTACT_NAME.style.borderColor = "red";
     }
     else {
+        CONFIRM_MSG_TEXT.innerHTML = "確認付款中，請稍候...";
+        CONFIRM_MSG_ICON.style.display = "none";
+        CONFIRM_MSG.style.display = "flex";
+        CONFIRM_MSG_TEXT.style.color = "#448899";
+
         TPDirect.card.getPrime(function (result) {
             // 取得 TapPay Fields 的 status
             const tappayStatus = TPDirect.card.getTappayFieldsStatus()
@@ -240,6 +246,8 @@ JOURNEY_ORDER.addEventListener('click', function (event) {
             // 確認是否可以 getPrime
             if (tappayStatus.canGetPrime === false) {
                 CONFIRM_MSG_TEXT.innerHTML = "無法取得prime，付款失敗";
+                CONFIRM_MSG_ICON.style.display = "block";
+                CONFIRM_MSG_TEXT.style.color = "red";
                 CONFIRM_MSG.style.display = "flex";
                 // alert('can not get prime');
                 return;
@@ -288,6 +296,8 @@ JOURNEY_ORDER.addEventListener('click', function (event) {
                     }
                     else {
                         CONFIRM_MSG_TEXT.innerHTML = "伺服器內部錯誤，請再試一次";
+                        CONFIRM_MSG_ICON.style.display = "block";
+                        CONFIRM_MSG_TEXT.style.color = "red";
                         CONFIRM_MSG.style.display = "flex";
                     }
                 })
