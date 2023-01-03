@@ -8,6 +8,9 @@ const transportation = document.querySelector(".transportation")
 const carouselTrack = document.querySelector(".carousel_track");
 const carouselNav = document.querySelector(".carousel_nav");
 
+const BOOKING_MSG = document.querySelector(".order_msg");
+const BOOKING_MSG_ICON = document.querySelector(".order_msg_icon");
+const BOOKING_MSG_TEXT = document.querySelector(".order_msg_text");
 const BOOKING_BUTTON = document.querySelector(".boooking_button");
 const BOOKING_DATE = document.querySelector(".date");
 const BOOKING_PRICE = document.querySelector(".price");
@@ -161,30 +164,31 @@ nextButton.addEventListener("click", e => {
 dotsNav.addEventListener("click", e => {
     //找到目前按的indicator
     let targetDot = e.target.closest("button");
-    if (!targetDot) return;
-
-    let currentSlide = track.querySelector(".current-slide");
-    let currentDot = dotsNav.querySelector(".current-slide");
-    let targetIndex = dots.findIndex(dot => dot === targetDot);
-    let targetSlide = slides[targetIndex];
-    moveToSlide(track, currentSlide, targetSlide);
-    updateDots(currentDot, targetDot);
-    hideShowArrows(slides, prevButton, nextButton, targetIndex);
+    if (!targetDot) { return }
+    else {
+        let currentSlide = track.querySelector(".current-slide");
+        let currentDot = dotsNav.querySelector(".current-slide");
+        let targetIndex = dots.findIndex(dot => dot === targetDot);
+        let targetSlide = slides[targetIndex];
+        moveToSlide(track, currentSlide, targetSlide);
+        updateDots(currentDot, targetDot);
+        hideShowArrows(slides, prevButton, nextButton, targetIndex);
+    }
 })
 
 // 預定行程按鈕，取得預定表單資訊傳入後端
 
-BOOKING_BUTTON.addEventListener("click", booking, false);
 function booking() {
+    BOOKING_MSG.style.display = "none"
+    BOOKING_DATE.style.borderColor = "black";
+
     const BOOKING_TIME = document.querySelector("[name=time]:checked");
 
     // 日期
     BOOKING_DATE_value = BOOKING_DATE.value;
-    console.log(BOOKING_DATE_value)
 
     // 時間
     BOOKING_TIME_value = BOOKING_TIME.value;
-    console.log(BOOKING_TIME_value)
 
     // 價格
     if (BOOKING_PRICE.getAttribute('class').indexOf('2000') > -1) { // 找到顯示開始index，找不到顯示-1
@@ -198,36 +202,91 @@ function booking() {
     const BOOKING_IMAGE = document.querySelector(".carousel_image");
     BOOKING_IMAGE_src = BOOKING_IMAGE.src
 
-    // 寫入資料庫
-    fetch('/api/booking', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-        body: JSON.stringify({
-            "attractionId": attractionId,
-            "date": BOOKING_DATE_value,
-            "time": BOOKING_TIME_value,
-            "price": BOOKING_PRICE_value,
-            "image": BOOKING_IMAGE_src
-        })
-    }).then(response => {
+    // 檢查登入狀態
+    fetch('/api/user/auth').then(response => {
         return response.json();
     }).then(function (data) {
-        console.log(data)
-        if (data["ok"] == true) {
-            alert("已加入「預定行程」");
-            setTimeout(() => (location.href = "/booking"), 1000);
-        }
-        else if (data["error"] == true && data["message"] == "請選擇日期") {
-            alert("請選擇日期")
-        }
-        else if (data["error"] == true && data["message"] == "未登入系統") {
-            alert("請先登入系統")
+
+        // 未登入
+        if (data == null) {
+            BOOKING_MSG_TEXT.innerHTML = "請先登入系統";
+            BOOKING_MSG.style.display = "flex"
             let signin = document.querySelector(".signin");
-            console.log(signin);
-            signin.style.display = "block";
+
+            setTimeout(() => (signin.style.display = "block"), 1000);
         }
+
+        // 已登入
         else {
-            alert("Sorry，網頁存在內部錯誤，請再試一次")
+
+            // 檢查日期，js使用0~11表示1~12月
+
+            // 日期為空
+            if (BOOKING_DATE_value == "") {
+                BOOKING_MSG_TEXT.innerHTML = "請選擇日期"
+                BOOKING_MSG.style.display = "flex"
+                BOOKING_DATE.style.borderColor = "red";
+
+            }
+
+            // 日期不為空
+            else {
+                let date_now = new Date();
+                let order_date_split = BOOKING_DATE_value.split("-");
+                let order_date = new Date(order_date_split[0], order_date_split[1] - 1, order_date_split[2]);
+
+                // 日期為今日(含)以前的日期
+                if (order_date <= date_now) {
+                    BOOKING_MSG_TEXT.innerHTML = "請選擇今日(" + (date_now.getMonth() + 1) + "/" + date_now.getDate() + ")過後的日期"
+                    BOOKING_MSG.style.display = "flex";
+                    BOOKING_DATE.style.borderColor = "red";
+                }
+
+                // 日期為今日以後的日期
+                else {
+
+                    // 寫入資料庫
+                    fetch('/api/booking', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                        body: JSON.stringify({
+                            "attractionId": attractionId,
+                            "date": BOOKING_DATE_value,
+                            "time": BOOKING_TIME_value,
+                            "price": BOOKING_PRICE_value,
+                            "image": BOOKING_IMAGE_src
+                        })
+                    }).then(response => {
+                        return response.json();
+                    }).then(function (data) {
+                        console.log(data)
+                        if (data["ok"] == true) {
+                            BOOKING_MSG_ICON.remove();
+                            BOOKING_MSG_TEXT.innerHTML = "預約成功！"
+                            BOOKING_MSG.style.display = "block"
+                            BOOKING_MSG_TEXT.style.color = "#448899";
+                            setTimeout(() => (location.href = "/booking"), 1000);
+                        }
+                        else if (data["error"] == true && data["message"] == "請選擇日期") {
+                            BOOKING_MSG_TEXT.innerHTML = "請選擇日期";
+                            BOOKING_MSG.style.display = "flex"
+                            BOOKING_DATE.style.borderColor = "red";
+                        }
+                        else if (data["error"] == true && data["message"] == "未登入系統") {
+                            BOOKING_MSG_TEXT.innerHTML = "請先登入系統";
+                            BOOKING_MSG.style.display = "flex"
+                            let signin = document.querySelector(".signin");
+
+                            setTimeout(() => (signin.style.display = "block"), 1000);
+                        }
+                        else {
+                            BOOKING_MSG_TEXT.innerHTML = "伺服器內部錯誤，請再試一次";
+                            BOOKING_MSG.style.display = "flex"
+                        }
+                    })
+                }
+            }
         }
     })
 }
+BOOKING_BUTTON.addEventListener("click", booking, false);

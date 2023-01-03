@@ -1,45 +1,53 @@
-let login = document.querySelector(".login");
-let logout = document.querySelector(".logout");
-let signin = document.querySelector(".signin");
-let signup = document.querySelector(".signup");
-let signin_errorMsg = document.querySelector(".signin_errorMsg");
-let signup_errorMsg = document.querySelector(".signup_errorMsg");
-let signin_email = document.querySelector(".signin_email");
-let signin_password = document.querySelector(".signin_password");
-let signup_name = document.querySelector(".signup_name");
-let signup_email = document.querySelector(".signup_email");
-let signup_password = document.querySelector(".signup_password");
-let BOOKING = document.querySelector(".booking");
+const LOGIN = document.querySelector(".login");
+const LOGOUT = document.querySelector(".logout");
+const SIGNIN = document.querySelector(".signin");
+const SIGNUP = document.querySelector(".signup");
+const SIGNIN_ERROR_MSG = document.querySelector(".signin_errorMsg");
+const SIGNUP_ERROR_MSG = document.querySelector(".signup_errorMsg");
+const SIGNIN_EMAIL = document.querySelector(".signin_email");
+const SIGNIN_PASSWORD = document.querySelector(".signin_password");
+const SIGNUP_NAME = document.querySelector(".signup_name");
+const SIGNUP_EMAIL = document.querySelector(".signup_email");
+const SIGNUP_PASSWORD = document.querySelector(".signup_password");
+const BOOKING = document.querySelector(".booking");
+const SIGNIN_EMAIL_MSG_TEXT = document.querySelector(".signin_email_msg_text");
+const SIGNUP_EMAIL_MSG_TEXT = document.querySelector(".signup_email_msg_text");
+const SIGNIN_EMAIL_MSG = document.querySelector(".signin_email_msg");
+const SIGNUP_EMAIL_MSG = document.querySelector(".signup_email_msg");
+const REGEX_EMAIL = new RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
+
+const MEMBER = document.querySelector(".member");
 
 // signin 
 
 let signinClose = function () {
-    signin.style.display = "none";
-    signin_errorMsg.style.display = "none"
-    signin_email.value = ""
-    signin_password.value = "";
+    SIGNIN.style.display = "none";
+    SIGNIN_ERROR_MSG.style.display = "none"
+    SIGNIN_EMAIL.value = ""
+    SIGNIN_PASSWORD.value = "";
 }
 
 let signinOpen = function () {
-    signup_name.value = "";
-    signup_email.value = "";
-    signup_password.value = "";
-    signup_errorMsg.style.display = "none";
-    if (signup.style.display == "block") {
-        signup.style.display = "none";
+    SIGNUP_NAME.value = "";
+    SIGNUP_EMAIL.value = "";
+    SIGNUP_PASSWORD.value = "";
+    SIGNUP_ERROR_MSG.style.display = "none";
+    if (SIGNUP.style.display == "block") {
+        SIGNUP.style.display = "none";
     }
-    signin.style.display = "block";
+    SIGNIN.style.display = "block";
+    SIGNUP_EMAIL_MSG.style.display = "none";
 }
 
 let signinAccount = function () {
     // 使用者登入資訊
-    signin_email_val = signin_email.value;
-    signin_password_val = signin_password.value;
+    SIGNIN_EMAIL_VALUE = SIGNIN_EMAIL.value;
+    SIGNIN_PASSWORD_VALUE = SIGNIN_PASSWORD.value;
 
     // 偵測登入欄位留白
-    if (signin_email_val == "" || signin_password_val == "") {
-        signin_errorMsg.innerHTML = "任一欄位不可空白"
-        signin_errorMsg.style.display = "block"
+    if (SIGNIN_EMAIL_VALUE == "" || SIGNIN_PASSWORD_VALUE == "") {
+        SIGNIN_ERROR_MSG.innerHTML = "任一欄位不可空白"
+        SIGNIN_ERROR_MSG.style.display = "block"
     }
 
     // 登入資訊送入後端檢驗
@@ -47,7 +55,7 @@ let signinAccount = function () {
         fetch("/api/user/auth", {
             method: "PUT",
             headers: { 'Content-type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({ "email": signin_email_val, "password": signin_password_val })
+            body: JSON.stringify({ "email": SIGNIN_EMAIL_VALUE, "password": SIGNIN_PASSWORD_VALUE })
         }).then(response => {
             return response.json();
         }).then(function (data) {
@@ -56,12 +64,12 @@ let signinAccount = function () {
                 window.location.reload();
             }
             else if (data["message"] == "email或密碼錯誤") {
-                signin_errorMsg.innerHTML = "email或密碼錯誤";
-                signin_errorMsg.style.display = "block"
+                SIGNIN_ERROR_MSG.innerHTML = "email或密碼錯誤";
+                SIGNIN_ERROR_MSG.style.display = "block"
             }
             else {
-                signin_errorMsg.innerHTML = "伺服器內部錯誤";
-                signin_errorMsg.style.display = "block"
+                SIGNIN_ERROR_MSG.innerHTML = "伺服器內部錯誤";
+                SIGNIN_ERROR_MSG.style.display = "block"
             }
         })
     }
@@ -70,35 +78,36 @@ let signinAccount = function () {
 // signup 
 
 let signupClose = function () {
-    signup.style.display = "none";
-    signup_errorMsg.style.display = "none";
-    signup_name.value = "";
-    signup_email.value = "";
-    signup_password.value = "";
+    SIGNUP.style.display = "none";
+    SIGNUP_ERROR_MSG.style.display = "none";
+    SIGNUP_NAME.value = "";
+    SIGNUP_EMAIL.value = "";
+    SIGNUP_PASSWORD.value = "";
 }
 
 let signupOpen = function () {
-    signin_email.value = "";
-    signin_password.value = "";
-    signin_errorMsg.style.display = "none"
-    if (signin.style.display == "block") {
-        signin.style.display = "none";
+    SIGNIN_EMAIL.value = "";
+    SIGNIN_PASSWORD.value = "";
+    SIGNIN_ERROR_MSG.style.display = "none"
+    if (SIGNIN.style.display == "block") {
+        SIGNIN.style.display = "none";
     }
-    signup.style.display = "block";
+    SIGNUP.style.display = "block";
+    SIGNIN_EMAIL_MSG.style.display = "none";
 }
 
 let signupAccount = function () {
-    signup_errorMsg.style.display = "none";
+    SIGNUP_ERROR_MSG.style.display = "none";
     // 使用者註冊資訊
-    signup_name_val = signup_name.value;
-    signup_email_val = signup_email.value;
-    signup_password_val = signup_password.value;
+    SIGNUP_NAME_VALUE = SIGNUP_NAME.value;
+    SIGNUP_EMAIL_VALUE = SIGNUP_EMAIL.value;
+    SIGNUP_PASSWORD_VALUE = SIGNUP_PASSWORD.value;
     // console.log("signup_name: ", signup_name_val, "signup_email: ", signup_email_val, "signup_password: ", signup_password_val)
 
     // 偵測註冊欄位留白
-    if (signup_name_val == "" || signup_email_val == "" || signup_password_val == "") {
-        signup_errorMsg.innerHTML = "任一欄位不可空白";
-        signup_errorMsg.style.display = "block";
+    if (SIGNUP_NAME_VALUE == "" || SIGNUP_EMAIL_VALUE == "" || SIGNUP_PASSWORD_VALUE == "") {
+        SIGNUP_ERROR_MSG.innerHTML = "任一欄位不可空白";
+        SIGNUP_ERROR_MSG.style.display = "block";
     }
 
     // 註冊資訊送入後端檢驗
@@ -106,22 +115,22 @@ let signupAccount = function () {
         fetch("/api/user", {
             method: "POST",
             headers: { 'Content-type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({ "name": signup_name_val, "email": signup_email_val, "password": signup_password_val })
+            body: JSON.stringify({ "name": SIGNUP_NAME_VALUE, "email": SIGNUP_EMAIL_VALUE, "password": SIGNUP_PASSWORD_VALUE })
         }).then(response => {
             return response.json();
         }).then(function (data) {
             //console.log("data: ", data)
             if (data["ok"] == true) {
-                signup_errorMsg.innerHTML = "註冊成功！"
-                signup_errorMsg.style.display = "block"
+                SIGNUP_ERROR_MSG.innerHTML = "註冊成功！"
+                SIGNUP_ERROR_MSG.style.display = "block"
             }
             else if (data["message"] == "已有使用者註冊過") {
-                signup_errorMsg.innerHTML = "email已被註冊";
-                signup_errorMsg.style.display = "block";
+                SIGNUP_ERROR_MSG.innerHTML = "email已被註冊";
+                SIGNUP_ERROR_MSG.style.display = "block";
             }
             else {
-                signup_errorMsg.innerHTML = "伺服器內部錯誤";
-                signup_errorMsg.style.display = "block";
+                SIGNUP_ERROR_MSG.innerHTML = "伺服器內部錯誤";
+                SIGNUP_ERROR_MSG.style.display = "block";
             }
         })
     }
@@ -136,8 +145,9 @@ let checkLogin = function () {
     }).then(function (data) {
         // console.log("data: ", data)
         if (data != null) {
-            login.style.display = "none"
-            logout.style.display = "block"
+            LOGIN.style.display = "none"
+            LOGOUT.style.display = "block"
+            MEMBER.style.display = "block"
         }
     })
 }
@@ -172,5 +182,60 @@ BOOKING.addEventListener('click', function () {
             location.href = "/booking";
         }
 
+    })
+}, false);
+
+SIGNIN_EMAIL.addEventListener("change", function () {
+    SIGNIN_EMAIL.style.borderColor = "#CCCCCC";
+    SIGNIN_EMAIL_MSG.style.display = "none";
+
+    let SIGNIN_EMAIL_VALUE = SIGNIN_EMAIL.value;
+
+    if (SIGNIN_EMAIL_VALUE == "") {
+        SIGNIN_EMAIL.style.borderColor = "red";
+        SIGNIN_EMAIL_MSG_TEXT.innerHTML = "請輸入email欄位";
+        SIGNIN_EMAIL_MSG.style.display = "flex"
+    }
+    else if (REGEX_EMAIL.exec(SIGNIN_EMAIL_VALUE)) {
+        SIGNIN_EMAIL_MSG_TEXT.innerHTML = "";
+    }
+    else {
+        SIGNIN_EMAIL.style.borderColor = "red";
+        SIGNIN_EMAIL_MSG_TEXT.innerHTML = "請輸入正確的email格式";
+        SIGNIN_EMAIL_MSG.style.display = "flex"
+    }
+});
+
+SIGNUP_EMAIL.addEventListener("change", function () {
+    SIGNUP_EMAIL.style.borderColor = "#CCCCCC";
+    SIGNUP_EMAIL_MSG.style.display = "none";
+
+    let SIGNUP_EMAIL_VALUE = SIGNUP_EMAIL.value;
+
+    if (SIGNUP_EMAIL_VALUE == "") {
+        SIGNUP_EMAIL.style.borderColor = "red";
+        SIGNUP_EMAIL_MSG_TEXT.innerHTML = "請輸入email欄位";
+        SIGNUP_EMAIL_MSG.style.display = "flex"
+    }
+    else if (REGEX_EMAIL.exec(SIGNUP_EMAIL_VALUE)) {
+        SIGNUP_EMAIL_MSG_TEXT.innerHTML = "";
+    }
+    else {
+        SIGNUP_EMAIL.style.borderColor = "red";
+        SIGNUP_EMAIL_MSG_TEXT.innerHTML = "請輸入正確的email格式";
+        SIGNUP_EMAIL_MSG.style.display = "flex"
+    }
+});
+
+MEMBER.addEventListener('click', function () {
+    fetch("/api/user/auth", { method: "GET" }).then(response => {
+        return response.json();
+    }).then(function (userData) {
+        if (userData == null) {
+            signinOpen();
+        }
+        else {
+            location.href = "/member";
+        }
     })
 }, false);

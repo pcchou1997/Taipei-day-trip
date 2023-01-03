@@ -1,6 +1,5 @@
 .booking_content {
-    position: relative;
-    top: 100px;
+    padding-top: 100px;
 }
 
 .booking_headline {
@@ -79,6 +78,10 @@
     cursor: pointer;
 }
 
+.journey_delete:hover {
+    filter: brightness(0.5);
+}
+
 /* -------------------------------------------------------------------- */
 /*                            2. contact                                */
 /* -------------------------------------------------------------------- */
@@ -101,6 +104,7 @@
     width: 200px;
     height: 38px;
     border: 1px solid #E8E8E8;
+    border-radius: 5px;
     padding: 10px;
     word-break: break-all;
     color: #000000;
@@ -114,13 +118,20 @@
 /* -------------------------------------------------------------------- */
 /*                            3. payment                                */
 /* -------------------------------------------------------------------- */
+.payment label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
 
 .tpfield {
+    font-size: 16px;
     height: 40px;
-    width: 300px;
-    border: 1px solid gray;
+    width: 200px;
+    border: 1px solid #E8E8E8;
+    border-radius: 5px;
     margin: 5px 0;
-    padding: 5px;
+    padding: 10px;
 }
 
 /* -------------------------------------------------------------------- */
@@ -131,18 +142,9 @@
     text-align: right;
 }
 
-.confirm div {
+.confirm_totalCost {
     font-weight: bold;
     margin-top: 43px;
-}
-
-.tpfield {
-    height: 40px;
-    width: 300px;
-    border: 1px solid gray;
-    margin: 5px 0;
-    padding: 5px;
-    border-radius: 5px;
 }
 
 .confirm button {
@@ -153,10 +155,31 @@
     padding: 10px 20px;
     border: none;
     margin-top: 25px;
-    margin-bottom: 62px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
+.confirm button:hover {
+    opacity: 0.8;
+}
 
+.confirm_msg {
+    margin-top: 5px;
+    display: none;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.confirm_msg_icon {
+    filter: invert(19%) sepia(55%) saturate(4511%) hue-rotate(352deg) brightness(103%) contrast(139%);
+    width: 16px;
+    height: 16px;
+}
+
+.confirm_msg_text {
+    margin-left: 5px;
+    color: #ff0000;
+}
 
 @media screen and (max-width: 1000px) {
     .booking_headline {
@@ -174,7 +197,6 @@
     .journey_delete {
         right: 10px;
     }
-
 }
 
 @media screen and (max-width: 600px) {
@@ -182,10 +204,6 @@
         display: block;
         /* padding-bottom: 0px; */
     }
-
-    /* .journey_address{
-        margin-bottom: 40px;
-    } */
 
     .journey img:first-child {
         width: 100%;

@@ -1,6 +1,5 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
 
-
 * {
     box-sizing: border-box;
     font-size: 16px;
@@ -48,7 +47,6 @@ body {
     text-decoration: none;
     width: 150px;
     height: 34px;
-
 }
 
 .menu {
@@ -66,14 +64,15 @@ body {
     color: #666666;
     /* a為行內元素，超連結只會在字體範圍內，若想點擊整個格子都有超連結須將超連結改為block*/
     cursor: pointer;
+    transition: 0.3s;
 }
 
-.menu a {
-    text-decoration: none;
-    color: #666666;
+.menu li:hover {
+    font-weight: bold;
 }
 
-.logout {
+.logout,
+.member {
     display: none;
 }
 
@@ -129,12 +128,14 @@ body {
     background-image: url(../img/btn_rightArrow.png);
     right: 15px;
     opacity: .7;
+    transition: 0.3s;
 }
 
 .carousel_button_left {
     background-image: url(../img/btn_leftArrow.png);
     left: 15px;
     opacity: .6;
+    transition: 0.3s;
 }
 
 .carousel_button_right:hover {
@@ -142,7 +143,6 @@ body {
     opacity: 1;
     /* 讓圖片顏色更深 */
     /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/btn_rightArrow.png); */
-
 }
 
 .carousel_button_left:hover {
@@ -218,7 +218,6 @@ body {
     height: 22px;
     font-size: 16px;
     margin-bottom: 20px;
-
 }
 
 .orderGuild {
@@ -245,6 +244,7 @@ body {
     height: 35px;
     margin-bottom: 15px;
     margin-left: 5px;
+    cursor: pointer;
 }
 
 .orderTime {
@@ -266,6 +266,11 @@ body {
     cursor: pointer;
     margin-right: 8px;
     margin-left: 10px;
+    transition: 0.3s;
+}
+
+.container:hover {
+    color: black;
 }
 
 .container input {
@@ -283,11 +288,6 @@ body {
     background-color: white;
     border-radius: 50%;
 }
-
-.checkmark:hover {
-    background-color: #d8ebf0;
-}
-
 
 .checkmark:after {
     height: 18px;
@@ -326,6 +326,24 @@ body {
     margin-left: 5px;
 }
 
+.order_msg {
+    margin-top: 5px;
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.order_msg_icon {
+    filter: invert(19%) sepia(55%) saturate(4511%) hue-rotate(352deg) brightness(103%) contrast(139%);
+    width: 16px;
+    height: 16px;
+}
+
+.order_msg_text {
+    margin-left: 5px;
+    color: #ff0000;
+}
+
 .boooking_button {
     width: 154px;
     height: 36px;
@@ -335,6 +353,11 @@ body {
     border-radius: 5px;
     border: none;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.boooking_button:hover {
+    opacity: 0.8;
 }
 
 .info {
@@ -365,12 +388,11 @@ body {
                     footer 
 ===================================================*/
 
-
 .footer {
     width: 100%;
     height: 104px;
-    position: relative;
-    bottom: -100px;
+    /* position: relative;
+    bottom: -100px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -380,6 +402,25 @@ body {
 .footer div {
     font-size: 16px;
     color: #FFFFFF;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+
+.main {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    padding-bottom: 40px;
 }
 
 /* ==================================================
@@ -430,9 +471,4 @@ body {
     .catMrt {
         margin-left: 10px;
     }
-
-    /* .footer {
-        bottom: -50px;
-    } */
-
 }

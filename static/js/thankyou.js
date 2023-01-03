@@ -1,5 +1,6 @@
 const SERIAL_NUMBER = document.querySelector(".serialNumber")
 const GO_INDEX = document.querySelector(".goIndex")
+const GO_MEMBER = document.querySelector(".goMember")
 
 // 連線取得「使用者資料」 /api/user/auth (GET)
 
@@ -42,4 +43,9 @@ fetch("/api/user/auth", { method: "GET" }).then(response => {
 // 「返回首頁」按鈕
 GO_INDEX.addEventListener('click', function () {
     location.href = "/"
+});
+
+// 「會員頁面」按鈕
+GO_MEMBER.addEventListener('click', function () {
+    location.href = "/member"
 });

@@ -1,5 +1,9 @@
 from mysql.connector import pooling
-# import mysql.connector
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+database_password = os.getenv("database_password")
 
 # 打開資料庫 
 def openDB():
@@ -9,7 +13,7 @@ def openDB():
         pool_reset_session=True,
         host='localhost',
         user='root',
-        password='Aaa-860221',
+        password=database_password,
         db='TaipeiDayTripDB',
         charset='utf8mb4')
     conn = pool.get_connection()

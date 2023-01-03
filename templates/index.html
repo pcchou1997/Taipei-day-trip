@@ -11,68 +11,82 @@
 </head>
 
 <body>
-    <!-- 導覽列 -->
-    <nav class="navbar">
-        <a class="logo" href="/">台北一日遊</a>
-        <nav class="navbar-list">
-            <ul class="menu">
-                <li class="booking">預定行程</li>
-                <li class="login" onclick="signinOpen();">登入/註冊</li>
-                <li class="logout" onclick="signout();">登出系統</li>
-            </ul>
+
+    <div class="main">
+        <!-- 導覽列 -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <a class="logo" href="/">台北一日遊</a>
+                <nav class="navbar-list">
+                    <ul class="menu">
+                        <li class="booking">預定行程</li>
+                        <li class="login" onclick="signinOpen();">登入/註冊</li>
+                        <li class="member">會員頁面</li>
+                        <li class="logout" onclick="signout();">登出系統</li>
+                    </ul>
+                </nav>
+            </div>
         </nav>
-    </nav>
-    <!-- 導覽列end -->
+        <!-- 導覽列end -->
 
-    <!-- welcome -->
-    <div class="welcome">
-        <div class="welcome_inner">
-            <div class="slogan">
-                <p class="p1">輕鬆享受台北一日悠閒</p>
-                <p class="p2">探索每個角落，體驗城市的深度旅遊行程</p>
+        <!-- welcome -->
+        <div class="welcome">
+            <div class="welcome_inner">
+                <div class="slogan">
+                    <p class="p1">輕鬆享受台北一日悠閒</p>
+                    <p class="p2">探索每個角落，體驗城市的深度旅遊行程</p>
+                </div>
+                <div class="searchbar">
+                    <input placeholder="輸入景點名稱查詢" class="search">
+                    <button class=" searchbutton" onclick="search();"><img src="../static/img/icon_search.png"
+                            alt="送出按鈕"></button>
+                    <div class="categories"></div>
+                </div>
             </div>
-            <div class="searchbar">
-                <input placeholder="輸入景點名稱查詢" class="search">
-                <button class=" searchbutton" onclick="search();"><img src="../static/img/icon_search.png"
-                        alt="送出按鈕"></button>
-                <div class="categories"></div>
+        </div>
+        <!-- welcome end-->
+        <!-- 登入 -->
+        <div class="signin">
+            <div class="signin_head"></div>
+            <div class="signin_content">
+                <h3>登入會員帳號</h3>
+                <div class="signin_close"><img src="../static/img/icon_close.png" alt="" onclick="signinClose();"></div>
+                <input type="text" placeholder="輸入電子信箱" class="signin_input signin_email">
+                <div class="signin_email_msg">
+                    <img class="signin_email_msg_icon" src="../static/img/warning.svg" alt="warning_icon">
+                    <div class="signin_email_msg_text"></div>
+                </div>
+                <input type="password" placeholder="輸入密碼" class="signin_input signin_password">
+                <button onclick="signinAccount()">登入帳戶</button>
+                <div class="signin_errorMsg"></div>
+                <p class="signin_signup" onclick="signupOpen();">還沒有帳戶？點此註冊</p>
             </div>
         </div>
-    </div>
-    <!-- 登入 -->
-    <div class="signin">
-        <div class="signin_head"></div>
-        <div class="signin_content">
-            <h3>登入會員帳號</h3>
-            <div class="signin_close"><img src="../static/img/icon_close.png" alt="" onclick="signinClose();"></div>
-            <input type="text" placeholder="輸入電子信箱" class="signin_input signin_email">
-            <input type="password" placeholder="輸入密碼" class="signin_input signin_password">
-            <button onclick="signinAccount()">登入帳戶</button>
-            <div class="signin_errorMsg"></div>
-            <p class="signin_signup" onclick="signupOpen();">還沒有帳戶？點此註冊</p>
+        <!-- 登入 end -->
+        <!-- 註冊 -->
+        <div class="signup">
+            <div class="signup_head"></div>
+            <div class="signup_content">
+                <h3>註冊會員帳號</h3>
+                <div class="signup_close"><img src="../static/img/icon_close.png" alt="" onclick="signupClose();"></div>
+                <input type="text" placeholder="輸入姓名" class="signup_input signup_name">
+                <input type="text" placeholder="輸入電子郵件" class="signup_input signup_email">
+                <div class="signup_email_msg">
+                    <img class="signup_email_msg_icon" src="../static/img/warning.svg" alt="warning_icon">
+                    <div class="signup_email_msg_text"></div>
+                </div>
+                <input type="password" placeholder="輸入密碼" class="signup_input signup_password">
+                <button onclick="signupAccount()">註冊新帳戶</button>
+                <div class="signup_errorMsg"></div>
+                <p class="signup_signin" onclick="signinOpen();">已經有帳戶了？點此登入</p>
+            </div>
         </div>
-    </div>
-    <!-- 登入 end -->
-    <!-- 註冊 -->
-    <div class="signup">
-        <div class="signup_head"></div>
-        <div class="signup_content">
-            <h3>註冊會員帳號</h3>
-            <div class="signup_close"><img src="../static/img/icon_close.png" alt="" onclick="signupClose();"></div>
-            <input type="text" placeholder="輸入姓名" class="signup_input signup_name">
-            <input type="text" placeholder="輸入電子郵件" class="signup_input signup_email">
-            <input type="password" placeholder="輸入密碼" class="signup_input signup_password">
-            <button onclick="signupAccount()">註冊新帳戶</button>
-            <div class="signup_errorMsg"></div>
-            <p class="signup_signin" onclick="signinOpen();">已經有帳戶了？點此登入</p>
-        </div>
-    </div>
-    <!-- 註冊 end -->
-    <!-- welcome end -->
+        <!-- 註冊 end -->
+        <!-- welcome end -->
 
-    <!-- 主內容 -->
-    <div class="content">
-        <!-- <div class="grid_small">
+        <!-- 主內容 -->
+        <div class="content">
+            <!-- <div class="grid_small">
             <div class="site site_1">
                 <div class="site_img">
                     <div class="site_name"></div>
@@ -110,8 +124,9 @@
                 </div>
             </div>
         </div> -->
+        </div>
+        <!-- 主內容end -->
     </div>
-    <!-- 主內容end -->
 
     <!-- footer -->
     <footer class="footer">
@@ -121,6 +136,7 @@
 
     <script type="text/javascript" src="../static/js/index.js"></script>
     <script type="text/javascript" src="../static/js/login.js"></script>
+
 </body>
 
 </html>

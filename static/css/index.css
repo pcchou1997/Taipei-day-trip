@@ -14,7 +14,6 @@ body {
     border: 0;
     height: 100%;
     font-family: 'Noto Sans TC', '微軟正黑體', sans-serif;
-    ;
 }
 
 /* ==================================================
@@ -22,6 +21,12 @@ body {
 ===================================================*/
 
 .navbar {
+    height: 54px;
+    width: 100%;
+    align-items: center;
+}
+
+.navbar-content {
     height: 54px;
     width: 1200px;
     margin: 0 auto;
@@ -33,13 +38,9 @@ body {
 .logo {
     color: #448899;
     font-size: 30px;
-    line-height: 34px;
     font-weight: bold;
     text-decoration: none;
-    margin-left: 10px;
     width: 150px;
-    height: 34px;
-
 }
 
 .menu {
@@ -59,10 +60,8 @@ body {
     cursor: pointer;
 }
 
-.menu a {
-    text-decoration: none;
-    font-size: 16px;
-    color: #666666;
+.menu li:hover {
+    font-weight: bold;
 }
 
 /* ==================================================
@@ -136,6 +135,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.searchbutton:hover {
+    background: #2b5964;
+}
+
+.searchbutton:hover::before {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    width: 60px;
+    border-radius: 5px;
+    background: rgb(246, 246, 207, .6);
+    content: '點按搜尋';
+    font-size: 10px;
 }
 
 .categories {
@@ -152,11 +168,12 @@ body {
     z-index: 1;
     padding: 10px;
     border: gray solid 1px;
-
 }
 
 .category:hover {
-    background-color: rgb(237, 236, 236);
+    background-color: #448899;
+    color: white;
+    cursor: pointer;
 }
 
 /* ==================================================
@@ -189,7 +206,6 @@ body {
     overflow: hidden;
 }
 
-
 .site_img {
     position: relative;
     width: 100%;
@@ -197,7 +213,13 @@ body {
     height: 197px;
     overflow: hidden;
     background-size: cover;
+    opacity: 1.0;
 }
+
+.grid_small a:hover .site_img {
+    opacity: 0.8;
+}
+
 
 .site_name {
     position: absolute;
@@ -239,9 +261,6 @@ body {
     margin: 0px;
     color: #757575;
     font-size: 16px;
-
-    /* border: 1px; */
-    /* border-color: gray; */
 }
 
 .site_category {
@@ -264,21 +283,39 @@ body {
                     footer 
 ===================================================*/
 
-
 .footer {
     width: 100%;
     height: 104px;
+    /* position: relative;
+    bottom: -100px; */
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #757575;
-    margin: 55px 0px 0px 0px;
-
 }
 
 .footer div {
     font-size: 16px;
     color: #FFFFFF;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+
+.main {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    padding-bottom: 40px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -289,6 +326,11 @@ body {
 
     .navbar {
         width: 95%;
+    }
+
+    .navbar-content {
+        width: 100%;
+        margin: 0px 10px;
     }
 
     .lego {
@@ -309,10 +351,6 @@ body {
         padding-top: 62.5%;
         height: auto;
     }
-
-
-
-
 }
 
 @media screen and (max-width: 600px) {
